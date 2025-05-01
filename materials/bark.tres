@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://bxh1v1eqoy5uo"]
+
+[ext_resource type="Shader" uid="uid://daygbou3vdknc" path="res://shaders/generic-cel-shader.gdshader" id="1_ynfw1"]
+
+[sub_resource type="Gradient" id="Gradient_lcyt8"]
+offsets = PackedFloat32Array(0.600806, 0.991935)
+colors = PackedColorArray(0.0380197, 0.029696, 0.00503882, 1, 0.835513, 0.793389, 0.577812, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_r0rtp"]
+gradient = SubResource("Gradient_lcyt8")
+
+[sub_resource type="Gradient" id="Gradient_627ds"]
+offsets = PackedFloat32Array(0.891129, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mg0vf"]
+gradient = SubResource("Gradient_627ds")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ynfw1")
+shader_parameter/albedo = Color(0.411765, 0.262745, 0.0588235, 1)
+shader_parameter/color_gradient = SubResource("GradientTexture1D_r0rtp")
+shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_mg0vf")
+shader_parameter/rim_color = Color(0, 0, 0, 1)
+shader_parameter/rim_power = 4.0
+shader_parameter/rim_strength = 0.8

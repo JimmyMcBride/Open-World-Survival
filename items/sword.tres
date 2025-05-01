@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bedgwmny2qjdn"]
+
+[ext_resource type="Texture2D" uid="uid://b4pacvtwybsog" path="res://assets/sword-icon.png" id="1_bikib"]
+[ext_resource type="Script" uid="uid://7mnixqarh1oo" path="res://scripts/Item.cs" id="1_es5ut"]
+[ext_resource type="PackedScene" uid="uid://0411v10l1g3x" path="res://scenes/item-sword.tscn" id="2_s2bgj"]
+
+[resource]
+script = ExtResource("1_es5ut")
+Icon = ExtResource("1_bikib")
+MaxStackSize = 1
+Name = "Sword"
+WorldItemScene = ExtResource("2_s2bgj")
+metadata/_custom_type_script = "uid://7mnixqarh1oo"
