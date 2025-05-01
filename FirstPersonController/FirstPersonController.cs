@@ -20,8 +20,8 @@ public partial class FirstPersonController : CharacterBody3D
     private const float SprintSpeed = 6.0f;
     private const float DashSpeed = 10.0f;
     private const float CrouchSpeed = 2.0f;
-    private const float LerpBackTime = 0.25f;
-
+    private const float FreeLookLerpTime = 0.2f; // Time to lerp camera back
+    private readonly float _freeLookYLimit = Mathf.DegToRad(125); // Limit free look to x degrees left/right
 
     private Camera3D _camera;
     private ShapeCast3D _ceilingDetection;
@@ -35,7 +35,6 @@ public partial class FirstPersonController : CharacterBody3D
     private float _dashTimer;
     private DebugPanel _debugPanel;
 
-    // Get the gravity from the project settings to be synced with RigidBody nodes.
     private float _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
     private Node3D _head;
@@ -45,13 +44,12 @@ public partial class FirstPersonController : CharacterBody3D
     private bool _isDashing;
     private bool _isSliding;
     private AnimationPlayer _jumpAnimationPlayer;
-    private bool _lowCeiling; // This is for when the ceiling is too low and the player needs to crouch.
+    private bool _lowCeiling;
     private Reticle _reticle;
     private float _slideTimer;
     private Crafting _smelting;
     private float _speed;
 
-    // States: normal, crouching, sprinting, dashing, sliding
     private string _state = "normal";
 
     private ColorRect _superSonicEffect;
@@ -95,7 +93,6 @@ public partial class FirstPersonController : CharacterBody3D
         _currentSpeed = Vector3.Zero.DistanceTo(GetRealVelocity());
         _superSonicEffect.Visible = _currentSpeed > 9;
 
-        // Use StringBuilder to minimize string allocations
         var debugInfo = new StringBuilder();
         debugInfo.Append($"Speed: {_currentSpeed:0.000}");
         _debugPanel.AddProperty("Speed", debugInfo.ToString(), 1);
@@ -177,9 +174,9 @@ public partial class FirstPersonController : CharacterBody3D
             }
         }
 
-        if (!_wasOnFloor && IsOnFloor()) // Just landed
+        if (!_wasOnFloor && IsOnFloor())
             _jumpAnimationPlayer.Play(GD.Randi() % 2 == 1 ? "land_left" : "land_right");
-        _wasOnFloor = IsOnFloor(); // This must always be at the end of physics_process
+        _wasOnFloor = IsOnFloor();
     }
 
     private void HandleGravityAndJumping(double delta)
@@ -214,7 +211,7 @@ public partial class FirstPersonController : CharacterBody3D
 
     private void HandleState(bool moving)
     {
-        if (_isDashing || _isSliding) return; // Do not change state if dashing or sliding
+        if (_isDashing || _isSliding) return;
 
         if (Input.IsActionPressed(InputAction.Sprint) && _state != "crouching")
             if (moving)
@@ -332,6 +329,13 @@ public partial class FirstPersonController : CharacterBody3D
             Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured
                 ? Input.MouseModeEnum.Visible
                 : Input.MouseModeEnum.Captured;
+
+        // Lerp camera rotation back to zero when not free-looking
+        if (!Input.IsActionPressed(InputAction.FreeLook))
+        {
+            var t = (float)delta / FreeLookLerpTime;
+            _camera.Rotation = _camera.Rotation.Lerp(Vector3.Zero, t);
+        }
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -339,7 +343,6 @@ public partial class FirstPersonController : CharacterBody3D
         if (Input.IsActionJustPressed(InputAction.Quit))
             GetTree().Quit();
 
-        // Close crafting on mouse click (excluding UI interaction)
         if (_crafting.IsCraftingWindowOpen() &&
             @event is InputEventMouseButton { Pressed: true })
             GlobalSignals.Instance.EmitOnCloseCraftingMenu(_crafting.CraftingTypeName);
@@ -355,22 +358,32 @@ public partial class FirstPersonController : CharacterBody3D
         HandleJoystickInput();
 
         if (@event is not InputEventMouseMotion motion || Input.MouseMode != Input.MouseModeEnum.Captured) return;
-        var currentRotation = _head.Rotation;
-        currentRotation.Y -= motion.Relative.X * MouseSensitivity;
-        currentRotation.X -= motion.Relative.Y * MouseSensitivity;
 
-        // Clamp the vertical rotation
-        currentRotation.X = Mathf.Clamp(currentRotation.X, Mathf.DegToRad(-89), Mathf.DegToRad(89));
-
-        _head.Rotation = currentRotation;
+        if (Input.IsActionPressed(InputAction.FreeLook))
+        {
+            // Rotate camera during free-look
+            var cameraRotation = _camera.Rotation;
+            cameraRotation.Y -= motion.Relative.X * MouseSensitivity;
+            cameraRotation.X -= motion.Relative.Y * MouseSensitivity;
+            cameraRotation.Y = Mathf.Clamp(cameraRotation.Y, -_freeLookYLimit, _freeLookYLimit);
+            _camera.Rotation = cameraRotation;
+        }
+        else
+        {
+            // Rotate head when not free-looking
+            var headRotation = _head.Rotation;
+            headRotation.Y -= motion.Relative.X * MouseSensitivity;
+            headRotation.X -= motion.Relative.Y * MouseSensitivity;
+            headRotation.X = Mathf.Clamp(headRotation.X, Mathf.DegToRad(-89), Mathf.DegToRad(89));
+            _head.Rotation = headRotation;
+        }
     }
 
     private static void HandleJoystickInput()
     {
-        const int joyIndex = 0; // Change this to the appropriate joystick index
+        const int joyIndex = 0;
 
         for (var axisIndex = 0; axisIndex < (int)JoyAxis.Max; axisIndex++)
-            // Ensure the axis index is within bounds
             if (axisIndex is >= 0 and < (int)JoyAxis.Max)
             {
                 var axisValue = Input.GetJoyAxis(joyIndex, JoyAxis.LeftX + axisIndex);
