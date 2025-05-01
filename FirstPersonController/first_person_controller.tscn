@@ -396,11 +396,15 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="DebugPanel" type="PanelContainer" parent="UserInterface"]
-layout_mode = 0
-offset_left = 10.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -453.0
 offset_top = 10.0
-offset_right = 453.0
+offset_right = -10.0
 offset_bottom = 50.0
+grow_horizontal = 0
 theme = SubResource("Theme_wdf0f")
 script = ExtResource("1_tqfva")
 
