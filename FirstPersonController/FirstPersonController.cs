@@ -385,7 +385,7 @@ public partial class FirstPersonController : CharacterBody3D
 
         if (@event is not InputEventMouseMotion motion || Input.MouseMode != Input.MouseModeEnum.Captured) return;
 
-        if (Input.IsActionPressed(InputAction.FreeLook) || _isSliding)
+        if (Input.IsActionPressed(InputAction.FreeLook) || (_isSliding && IsOnFloor()))
         {
             var cameraRotation = _camera.Rotation;
             cameraRotation.Y -= motion.Relative.X * MouseSensitivity;
