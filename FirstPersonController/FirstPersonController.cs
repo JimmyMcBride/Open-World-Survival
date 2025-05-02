@@ -16,8 +16,9 @@ public partial class FirstPersonController : CharacterBody3D
     private const float Acceleration = 5.0f;
     private const float BaseSpeed = 4.0f;
     private const float SlideSpeed = 8.0f;
+    private const float SlideJumpSpeed = 10f;
     private const float SprintSpeed = 6.0f;
-    private const float DashSpeed = 10.0f;
+    private const float DashSpeed = 12f;
     private const float CrouchSpeed = 2.0f;
     private const float FreeLookLerpTime = 0.2f;
     private const float RollLerpDuration = .2f;
@@ -38,6 +39,7 @@ public partial class FirstPersonController : CharacterBody3D
     private Vector3 _initialSlideDirection = Vector3.Zero;
     private bool _isDashing;
     private bool _isLerpingRoll;
+    private bool _isSlideJumping; // New flag for slide jump state
     private bool _isSliding;
     private AnimationPlayer _jumpAnimationPlayer;
     private float _lerpRollProgress;
@@ -88,7 +90,6 @@ public partial class FirstPersonController : CharacterBody3D
     public override void _PhysicsProcess(double delta)
     {
         _currentSpeed = Vector3.Zero.DistanceTo(GetRealVelocity());
-        _superSonicEffect.Visible = _currentSpeed > 9;
 
         var debugInfo = new StringBuilder();
         debugInfo.Append($"Speed: {_currentSpeed:0.000}");
@@ -100,7 +101,7 @@ public partial class FirstPersonController : CharacterBody3D
 
         var cv = GetRealVelocity();
         debugInfo.Clear();
-        debugInfo.AppendFormat("Velocity: X: {0:0.000} Y: {0:0.000} Z: {0:0.000}", cv.X, cv.Y, cv.Z);
+        debugInfo.AppendFormat("X: {0:0.000} Y: {0:0.000} Z: {0:0.000}", cv.X, cv.Y, cv.Z);
         _debugPanel.AddProperty("Velocity", debugInfo.ToString(), 3);
 
         HandleGravityAndJumping(delta);
@@ -118,6 +119,7 @@ public partial class FirstPersonController : CharacterBody3D
         UpdateCameraFov();
         HeadBobAnimation(inputDir != Vector2.Zero);
 
+        _superSonicEffect.Visible = _isDashing;
         if (_isDashing)
         {
             _dashTimer -= (float)delta;
@@ -140,7 +142,7 @@ public partial class FirstPersonController : CharacterBody3D
                 else
                     EnterNormalState();
             }
-
+            else
             {
                 var slideVelocity = _initialSlideDirection * _speed;
                 Velocity = Velocity.SetXz(slideVelocity.X, slideVelocity.Z);
@@ -179,7 +181,8 @@ public partial class FirstPersonController : CharacterBody3D
                 else
                     EnterNormalState();
             }
-            else
+
+            if (_isSlideJumping)
             {
                 var slideVelocity = _initialSlideDirection * _speed;
                 Velocity = Velocity.SetXz(slideVelocity.X, slideVelocity.Z);
@@ -200,6 +203,17 @@ public partial class FirstPersonController : CharacterBody3D
             _head.GlobalRotation = new Vector3(_head.GlobalRotation.X, _head.GlobalRotation.Y, lerpedRoll);
         }
 
+        // Handle landing after the slide jump
+        if (!_wasOnFloor && IsOnFloor() && _isSlideJumping)
+        {
+            _isSlideJumping = false;
+            _isSliding = false;
+            if (Input.IsActionPressed(InputAction.Sprint))
+                EnterSprintState();
+            else
+                EnterNormalState();
+        }
+
         if (!_wasOnFloor && IsOnFloor())
             _jumpAnimationPlayer.Play(GD.Randi() % 2 == 1 ? "land_left" : "land_right");
         _wasOnFloor = IsOnFloor();
@@ -216,7 +230,12 @@ public partial class FirstPersonController : CharacterBody3D
             {
                 _jumpAnimationPlayer?.Play("jump");
                 currentVelocity.Y += _state == "sliding" ? JumpVelocity * 1.5f : JumpVelocity;
-                if (_state == "sliding") EnterSprintState();
+                if (_state == "sliding")
+                {
+                    _isSlideJumping = true;
+                    _speed = SlideJumpSpeed; // Maintain slide speed
+                    EnterSprintState(); // Set state for other mechanics
+                }
             }
 
         Velocity = currentVelocity;
@@ -229,6 +248,15 @@ public partial class FirstPersonController : CharacterBody3D
         direction = direction.Normalized();
         MoveAndSlide();
 
+        // Skip normal movement updates if in slide jump
+        if (_isSlideJumping)
+        {
+            Logger.Debug($"Slide jump speed: {_speed}");
+            var slideVelocity = _initialSlideDirection * _speed;
+            Velocity = Velocity.SetXz(slideVelocity.X, slideVelocity.Z);
+            return;
+        }
+
         if (InAirMomentum && !IsOnFloor()) return;
         var currentVelocity = Vector3.Zero;
         currentVelocity.X = Mathf.Lerp(Velocity.X, direction.X * _speed, (float)(Acceleration * delta));
@@ -238,7 +266,7 @@ public partial class FirstPersonController : CharacterBody3D
 
     private void HandleState(bool moving)
     {
-        if (_isDashing || _isSliding) return;
+        if (_isDashing || _isSliding || _isSlideJumping) return;
 
         if (Input.IsActionPressed(InputAction.Sprint) && _state != "crouching")
             if (moving)
@@ -297,7 +325,7 @@ public partial class FirstPersonController : CharacterBody3D
         }
 
         _state = "normal";
-        _speed = BaseSpeed;
+        if (!_isSlideJumping) _speed = BaseSpeed;
     }
 
     private void EnterSprintState()
@@ -311,7 +339,7 @@ public partial class FirstPersonController : CharacterBody3D
         }
 
         _state = "sprinting";
-        _speed = SprintSpeed;
+        if (!_isSlideJumping) _speed = SprintSpeed;
     }
 
     private void EnterCrouchState()
@@ -385,6 +413,7 @@ public partial class FirstPersonController : CharacterBody3D
 
         if (@event is not InputEventMouseMotion motion || Input.MouseMode != Input.MouseModeEnum.Captured) return;
 
+        if (_isDashing) return;
         if (Input.IsActionPressed(InputAction.FreeLook) || (_isSliding && IsOnFloor()))
         {
             var cameraRotation = _camera.Rotation;
