@@ -1104,7 +1104,6 @@ visible = false
 shape = SubResource("CapsuleShape3D_o6gxg")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-debug_enabled = true
 
 [node name="AiStateMachine" type="Node" parent="." node_paths=PackedStringArray("DefaultState")]
 script = ExtResource("4_0m5xl")
