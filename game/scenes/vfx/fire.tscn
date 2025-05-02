@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://cs800jqehmp2u"]
+
+[ext_resource type="Gradient" uid="uid://b20jf1gbier1v" path="res://game/resources/art/materials/fire_gradient.tres" id="1_ke4o3"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q52fm"]
+gradient = ExtResource("1_ke4o3")
+
+[sub_resource type="Curve" id="Curve_5xoqi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.492647, 1), 0.0, 0.0, 0, 0, Vector2(0.992647, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ci5hq"]
+curve = SubResource("Curve_5xoqi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rm5iv"]
+lifetime_randomness = 1.0
+emission_shape_scale = Vector3(0.1, 0.05, 0.1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+inherit_velocity_ratio = 0.5
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_max = 0.25
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_ci5hq")
+color = Color(1, 0.847059, 0.8, 1)
+color_ramp = SubResource("GradientTexture1D_q52fm")
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_wg1i2"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_a4s6x"]
+material = SubResource("ORMMaterial3D_wg1i2")
+radius = 0.05
+height = 0.1
+
+[node name="Fire" type="GPUParticles3D"]
+amount = 150
+process_material = SubResource("ParticleProcessMaterial_rm5iv")
+draw_pass_1 = SubResource("SphereMesh_a4s6x")

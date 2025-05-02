@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cef4c8nejme1i"]
+
+[ext_resource type="PackedScene" uid="uid://ci4dqmjhw1k6e" path="res://game/resources/art/glb/leafy-tree.glb" id="1_jefi0"]
+[ext_resource type="Material" uid="uid://1kd2p1dkysk" path="res://game/resources/art/materials/leaves.tres" id="2_ra85k"]
+[ext_resource type="Material" uid="uid://bxh1v1eqoy5uo" path="res://game/resources/art/materials/bark.tres" id="3_fhlu7"]
+
+[node name="leafy-tree" instance=ExtResource("1_jefi0")]
+
+[node name="03-tree" parent="." index="0"]
+transform = Transform3D(-1.33391, -0.0485173, 0.0307957, -0.0489434, 1.4702, -0.0630688, -0.0540283, -0.133988, -0.703183, -0.142427, 0, 0)
+surface_material_override/0 = ExtResource("2_ra85k")
+surface_material_override/1 = ExtResource("3_fhlu7")
+
+[node name="CollisionShape3D" parent="03-tree/StaticBody3D" index="0"]
+visible = false

@@ -11,12 +11,12 @@ config_version=5
 [application]
 
 config/name="Open World Survival"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://game/scenes/levels/main.tscn"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 
 [autoload]
 
-GlobalSignals="*res://scripts/signals/GlobalSignals.cs"
+GlobalSignals="*res://game/globals/signals/GlobalSignals.cs"
 
 [display]
 

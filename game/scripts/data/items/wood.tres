@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://3bn7bc3o3507"]
+
+[ext_resource type="Texture2D" uid="uid://b6w6y7uykofii" path="res://game/resources/art/icons/wood-icon.png" id="1_gqln0"]
+[ext_resource type="PackedScene" uid="uid://cdaj87uigc4ka" path="res://game/scenes/modules/items/log.tscn" id="2_sivcj"]
+[ext_resource type="Script" uid="uid://7mnixqarh1oo" path="res://game/scripts/systems/inventory/Item.cs" id="3_6gd3o"]
+
+[resource]
+resource_name = "Wood"
+script = ExtResource("3_6gd3o")
+Icon = ExtResource("1_gqln0")
+MaxStackSize = 20
+Name = "wood"
+WorldItemScene = ExtResource("2_sivcj")
