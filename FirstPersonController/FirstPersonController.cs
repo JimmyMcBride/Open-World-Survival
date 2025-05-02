@@ -216,6 +216,7 @@ public partial class FirstPersonController : CharacterBody3D
             {
                 _jumpAnimationPlayer?.Play("jump");
                 currentVelocity.Y += _state == "sliding" ? JumpVelocity * 1.5f : JumpVelocity;
+                if (_state == "sliding") EnterSprintState();
             }
 
         Velocity = currentVelocity;
