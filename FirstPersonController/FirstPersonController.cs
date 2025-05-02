@@ -36,10 +36,10 @@ public partial class FirstPersonController : CharacterBody3D
     private float _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     private Node3D _head;
     private AnimationPlayer _headBobAnimationPlayer;
-    private Vector3 _initialSlideDirection = Vector3.Zero;
+    private Vector3 _lockDirection = Vector3.Zero;
     private bool _isDashing;
     private bool _isLerpingRoll;
-    private bool _isSlideJumping; // New flag for slide jump state
+    private bool _isSlideJumping;
     private bool _isSliding;
     private AnimationPlayer _jumpAnimationPlayer;
     private float _lerpRollProgress;
@@ -144,7 +144,7 @@ public partial class FirstPersonController : CharacterBody3D
             }
             else
             {
-                var slideVelocity = _initialSlideDirection * _speed;
+                var slideVelocity = _lockDirection * _speed;
                 Velocity = Velocity.SetXz(slideVelocity.X, slideVelocity.Z);
             }
         }
@@ -184,7 +184,7 @@ public partial class FirstPersonController : CharacterBody3D
 
             if (_isSlideJumping)
             {
-                var slideVelocity = _initialSlideDirection * _speed;
+                var slideVelocity = _lockDirection * _speed;
                 Velocity = Velocity.SetXz(slideVelocity.X, slideVelocity.Z);
             }
         }
@@ -233,8 +233,8 @@ public partial class FirstPersonController : CharacterBody3D
                 if (_state == "sliding")
                 {
                     _isSlideJumping = true;
-                    _speed = SlideJumpSpeed; // Maintain slide speed
-                    EnterSprintState(); // Set state for other mechanics
+                    _speed = SlideJumpSpeed;
+                    EnterSprintState();
                 }
             }
 
@@ -248,11 +248,18 @@ public partial class FirstPersonController : CharacterBody3D
         direction = direction.Normalized();
         MoveAndSlide();
 
+        // Apply dash velocity during dash, ignoring input
+        if (_isDashing)
+        {
+            var dashVelocity = _lockDirection * _speed;
+            Velocity = Velocity.SetXz(dashVelocity.X, dashVelocity.Z);
+            return;
+        }
+
         // Skip normal movement updates if in slide jump
         if (_isSlideJumping)
         {
-            Logger.Debug($"Slide jump speed: {_speed}");
-            var slideVelocity = _initialSlideDirection * _speed;
+            var slideVelocity = _lockDirection * _speed;
             Velocity = Velocity.SetXz(slideVelocity.X, slideVelocity.Z);
             return;
         }
@@ -299,7 +306,10 @@ public partial class FirstPersonController : CharacterBody3D
         _dashOnCooldown = true;
         _state = "dash";
         _speed = DashSpeed;
-        _initialSlideDirection = Velocity.Normalized();
+        // Set dash direction based on the current velocity or forward direction
+        _lockDirection = Velocity.Normalized();
+        if (_lockDirection == Vector3.Zero)
+            _lockDirection = -_head.GlobalTransform.Basis.Z.Normalized();
     }
 
     private void EnterSlideState()
@@ -310,7 +320,7 @@ public partial class FirstPersonController : CharacterBody3D
         _slideTimer = SlideDuration;
         _speed = SlideSpeed;
         _state = "sliding";
-        _initialSlideDirection = Velocity.Normalized();
+        _lockDirection = Velocity.Normalized();
         _crouchAnimation.Play("crouch");
     }
 
