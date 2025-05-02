@@ -196,7 +196,6 @@ public partial class FirstPersonController : CharacterBody3D
                 _isLerpingRoll = false;
             }
 
-            Logger.Debug("Lerping roll");
             var lerpedRoll = Mathf.LerpAngle(_startRoll, _targetRoll, _lerpRollProgress);
             _head.GlobalRotation = new Vector3(_head.GlobalRotation.X, _head.GlobalRotation.Y, lerpedRoll);
         }
