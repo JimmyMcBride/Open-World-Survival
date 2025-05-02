@@ -8,7 +8,6 @@ namespace OpenWorldSurvival.FirstPersonController;
 
 public partial class FirstPersonController : CharacterBody3D
 {
-    private const float DashCooldown = 5000;
     private const float DashDuration = 1.5f;
     private const bool InAirMomentum = true;
     private const float JumpVelocity = 4f;
@@ -20,39 +19,37 @@ public partial class FirstPersonController : CharacterBody3D
     private const float SprintSpeed = 6.0f;
     private const float DashSpeed = 10.0f;
     private const float CrouchSpeed = 2.0f;
-    private const float FreeLookLerpTime = 0.2f; // Time to lerp camera back
-    private readonly float _freeLookYLimit = Mathf.DegToRad(125); // Limit free look to x degrees left/right
-
+    private const float FreeLookLerpTime = 0.2f;
+    private const float RollLerpDuration = .2f;
+    private readonly float _freeLookYLimit = Mathf.DegToRad(125);
     private Camera3D _camera;
     private ShapeCast3D _ceilingDetection;
     private CollisionShape3D _collisionCrouching;
     private CollisionShape3D _collisionStanding;
     private Crafting _crafting;
     private AnimationPlayer _crouchAnimation;
-
     private float _currentSpeed;
     private bool _dashOnCooldown;
     private float _dashTimer;
     private DebugPanel _debugPanel;
-
     private float _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
-
     private Node3D _head;
     private AnimationPlayer _headBobAnimationPlayer;
     private Vector3 _initialSlideDirection = Vector3.Zero;
-
     private bool _isDashing;
+    private bool _isLerpingRoll;
     private bool _isSliding;
     private AnimationPlayer _jumpAnimationPlayer;
+    private float _lerpRollProgress;
     private bool _lowCeiling;
     private Reticle _reticle;
     private float _slideTimer;
     private Crafting _smelting;
     private float _speed;
-
+    private float _startRoll;
     private string _state = "normal";
-
     private ColorRect _superSonicEffect;
+    private float _targetRoll;
     private Control _userInterface;
     private bool _wasOnFloor = true;
 
@@ -156,6 +153,21 @@ public partial class FirstPersonController : CharacterBody3D
             if (_slideTimer <= 0)
             {
                 _isSliding = false;
+                // Extract yaw (Y-axis) and pitch (X-axis) from the camera's global rotation
+                var cameraGlobalBasis = _camera.GlobalTransform.Basis;
+                var yaw = Mathf.Atan2(cameraGlobalBasis.Z.X, cameraGlobalBasis.Z.Z);
+                var forward = cameraGlobalBasis.Z;
+                var pitch = Mathf.Asin(-forward.Y);
+                pitch = Mathf.Clamp(pitch, Mathf.DegToRad(-89), Mathf.DegToRad(89));
+
+                // Set pitch and yaw immediately, start lerping roll to 0
+                _startRoll = _camera.GlobalRotation.Z;
+                _head.GlobalRotation = new Vector3(pitch, yaw, _startRoll);
+                _targetRoll = 0f;
+                _lerpRollProgress = 0f;
+                _isLerpingRoll = true;
+
+                _camera.Rotation = Vector3.Zero;
                 if (_lowCeiling)
                 {
                     EnterCrouchState();
@@ -172,6 +184,21 @@ public partial class FirstPersonController : CharacterBody3D
                 var slideVelocity = _initialSlideDirection * _speed;
                 Velocity = Velocity.SetXz(slideVelocity.X, slideVelocity.Z);
             }
+        }
+
+        // Handle roll interpolation
+        if (_isLerpingRoll)
+        {
+            _lerpRollProgress += (float)delta / RollLerpDuration;
+            if (_lerpRollProgress >= 1f)
+            {
+                _lerpRollProgress = 1f;
+                _isLerpingRoll = false;
+            }
+
+            Logger.Debug("Lerping roll");
+            var lerpedRoll = Mathf.LerpAngle(_startRoll, _targetRoll, _lerpRollProgress);
+            _head.GlobalRotation = new Vector3(_head.GlobalRotation.X, _head.GlobalRotation.Y, lerpedRoll);
         }
 
         if (!_wasOnFloor && IsOnFloor())
@@ -330,8 +357,7 @@ public partial class FirstPersonController : CharacterBody3D
                 ? Input.MouseModeEnum.Visible
                 : Input.MouseModeEnum.Captured;
 
-        // Lerp camera rotation back to zero when not free-looking
-        if (!Input.IsActionPressed(InputAction.FreeLook))
+        if (!Input.IsActionPressed(InputAction.FreeLook) && !_isSliding)
         {
             var t = (float)delta / FreeLookLerpTime;
             _camera.Rotation = _camera.Rotation.Lerp(Vector3.Zero, t);
@@ -359,9 +385,8 @@ public partial class FirstPersonController : CharacterBody3D
 
         if (@event is not InputEventMouseMotion motion || Input.MouseMode != Input.MouseModeEnum.Captured) return;
 
-        if (Input.IsActionPressed(InputAction.FreeLook))
+        if (Input.IsActionPressed(InputAction.FreeLook) || _isSliding)
         {
-            // Rotate camera during free-look
             var cameraRotation = _camera.Rotation;
             cameraRotation.Y -= motion.Relative.X * MouseSensitivity;
             cameraRotation.X -= motion.Relative.Y * MouseSensitivity;
@@ -370,7 +395,6 @@ public partial class FirstPersonController : CharacterBody3D
         }
         else
         {
-            // Rotate head when not free-looking
             var headRotation = _head.Rotation;
             headRotation.Y -= motion.Relative.X * MouseSensitivity;
             headRotation.X -= motion.Relative.Y * MouseSensitivity;
