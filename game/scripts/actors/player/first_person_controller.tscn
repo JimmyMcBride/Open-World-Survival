@@ -1,9 +1,10 @@
-[gd_scene load_steps=36 format=3 uid="uid://dliffqgckv2gi"]
+[gd_scene load_steps=41 format=3 uid="uid://dliffqgckv2gi"]
 
 [ext_resource type="Script" uid="uid://r1savr87opxj" path="res://game/scripts/actors/player/DebugPanel.cs" id="1_tqfva"]
 [ext_resource type="Script" uid="uid://doh73gfvcfnrl" path="res://game/scripts/actors/player/FirstPersonController.cs" id="2_0fevr"]
 [ext_resource type="Script" uid="uid://cmlg0akoxv7d1" path="res://game/scripts/systems/interactions/InteractionController.cs" id="2_q7k8y"]
 [ext_resource type="Script" uid="uid://blf0u8efhk5b" path="res://game/scripts/actors/player/Reticle.cs" id="3_6x4bg"]
+[ext_resource type="Script" uid="uid://c3o8a2bvlr8eo" path="res://game/scripts/actors/player/HealthBar.cs" id="3_ey5p4"]
 [ext_resource type="Shader" uid="uid://2iyuom6wko82" path="res://game/resources/shaders/supersonic.gdshader" id="4_0np50"]
 [ext_resource type="Script" uid="uid://bdiqylrmf081y" path="res://game/scripts/systems/inventory/Inventory.cs" id="6_rkhjy"]
 [ext_resource type="PackedScene" uid="uid://i50fp7qfgveb" path="res://game/scenes/ui/inventory_slot.tscn" id="9_0wj7r"]
@@ -12,6 +13,17 @@
 [ext_resource type="Resource" uid="uid://dxs6upkj210ax" path="res://game/scripts/data/recipes/sword_recipe.tres" id="11_pfopn"]
 [ext_resource type="PackedScene" uid="uid://dvhl1cnafqd0p" path="res://game/scenes/ui/crafting_recipe_ui.tscn" id="11_w8npb"]
 [ext_resource type="Resource" uid="uid://sivx7p5jkajg" path="res://game/scripts/data/recipes/ingot-recipe.tres" id="12_p76qo"]
+[ext_resource type="Script" uid="uid://cqjpgm3x8ub6q" path="res://game/scripts/systems/vitals/Health.cs" id="13_02njv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02njv"]
+bg_color = Color(0.00682823, 3.60981e-08, 0.119326, 0.572549)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ey5p4"]
+bg_color = Color(0.68914, 0.210546, 0.139009, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ylde"]
+font_size = 22
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q7k8y"]
 
@@ -324,6 +336,29 @@ blend_mode = 3
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("2_0fevr")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("13_02njv")
+_postDeathAction = 1
+MaxHealth = 20
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 1020.0
+offset_bottom = 50.0
+theme_override_styles/background = SubResource("StyleBoxFlat_02njv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ey5p4")
+show_percentage = false
+script = ExtResource("3_ey5p4")
+
+[node name="HealthText" type="Label" parent="HealthBar"]
+layout_mode = 0
+offset_right = 999.0
+offset_bottom = 30.0
+label_settings = SubResource("LabelSettings_1ylde")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CollisionStanding" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

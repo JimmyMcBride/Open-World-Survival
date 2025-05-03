@@ -122,8 +122,13 @@ public partial class AiController : CharacterBody3D
         _isRunning = isRunning;
     }
 
-    private void SetIsStopped(bool isStopped)
+    public void SetIsStopped(bool isStopped)
     {
         _isStopped = isStopped;
+    }
+
+    public void SetIsLookingAtPlayer(bool isLookingAtPlayer)
+    {
+        _isLookingAtPlayer = isLookingAtPlayer;
     }
 }

@@ -34,6 +34,6 @@ public partial class Chase : AiState
             StateMachine.ChangeState("Wander");
 
         if (StopRange >= Controller.PlayerDistance)
-            StateMachine.ChangeState("Flee");
+            StateMachine.ChangeState("Attack");
     }
 }
