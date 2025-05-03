@@ -4,11 +4,16 @@
 
 ![main image](/assets/main.png)
 
-Hey, I’m Jimmy, and this repo is my sandbox for learning all things **Godot 4** and **C#** by building (and breaking, and rebuilding) a bite‑sized open‑world survival game. No marketplace shortcuts here—yours truly crafted every line of code, every pixel, every low‑poly tree swaying in the wind. My only rule: **if I didn’t model it, texture it, or script it myself, it doesn’t ship**.
+Hey, I’m Jimmy, and this repo is my sandbox for learning all things **Godot 4** and **C#** by building 
+(and breaking, and rebuilding) a bite‑sized open‑world survival game. No marketplace shortcuts here—yours 
+truly crafted every line of code, every pixel, every low‑poly tree swaying in the wind. My only rule: 
+**if I didn’t model it, texture it, or script it myself, it doesn’t ship**.
 
 ### Why another survival game?
 
-Because nothing stress‑tests your skills like juggling health, hunger, crafting, day–night cycles, and a cranky AI boar that really wants to yeet you off a cliff. It forces me to touch **physics, UI, audio, state machines, procedural worlds, saving/loading, and optimization**—all in one playground.
+Because nothing stress‑tests your skills like juggling health, hunger, crafting, day–night cycles, and a 
+cranky AI boar that really wants to yeet you off a cliff. It forces me to touch **physics, UI, audio, 
+state machines, procedural worlds, saving/loading, and optimization**—all in one playground.
 
 I've been learning from these people and more along the way:
 
@@ -17,7 +22,8 @@ I've been learning from these people and more along the way:
 - **Grant Abbitt** – my low-poly blender guru.
 - A sprinkle of other YouTube rabbit holes and docs.
 
-But tutorials are just launchpads. I refactor, extend, and sometimes completely re‑invent the examples, so the final result is mine.
+But tutorials are just launchpads. I refactor, extend, and sometimes completely re‑invent the examples, 
+so the final result is mine.
 
 ### What you’ll find here
 
@@ -69,7 +75,8 @@ Open-World-Survival/
 
 ![character movement](/assets/character-movement.gif)
 
-No game is fun unless moving around *feels* amazing, so I built a bespoke first‑person controller. Here’s the highlight reel:
+No game is fun unless moving around *feels* amazing, so I built a bespoke first‑person controller. 
+Here’s the highlight reel:
 
 | Feature                          | What it does                                                               | Why it matters in‑game                                                                          |
 | -------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -84,7 +91,8 @@ No game is fun unless moving around *feels* amazing, so I built a bespoke first�
 **Tech bits**
 
 * Pure C# on top of Godot 4’s `CharacterBody3D`
-* Constant‑tuned physics values (see the top of `FirstPersonController.cs`) so teammates can tweak speed/J‑curves without spelunking through code
+* Constant‑tuned physics values (see the top of `FirstPersonController.cs`) so teammates can 
+* tweak speed/J‑curves without spelunking through code
 * Camera FOV & head‑bob driven by AnimationPlayers for zero‑GC micro‑stutters
 * Debug overlay (fps, state, velocity) baked in for quick iteration
 
@@ -104,7 +112,8 @@ My goal was to build an enemy brain that’s **modular, tweak‑able, and fun to
 
 #### Why this design works
 
-* **Single‑responsibility** — Movement math lives in *Controller*, decision logic in *States*; swapping animations or nav settings doesn’t touch AI logic.
+* **Single‑responsibility** — Movement math lives in *Controller*, decision logic in *States*; 
+swapping animations or nav settings doesn’t touch AI logic.
 * **Author‑friendly** — New behavior = `class Taunt : AiState { … }` + drag‑drop in the scene tree.
 * **Cheap** — No coroutines or reflection; just a dictionary lookup and a few Booleans each frame.
 * **Extensible** — Want a *Patrol* or *Attack* state? Copy, tweak, register in `AiStateMachine.DefaultState` or transition to it from another state.
@@ -116,7 +125,8 @@ My goal was to build an enemy brain that’s **modular, tweak‑able, and fun to
 ![drag and drop](/assets/item-drop.gif)
 
 Your pockets are no longer bottomless chaos!
-This C#‑driven inventory module keeps every log, ingot, and legendary sword neatly wrangled so the rest of the game can focus on *survival* instead of spreadsheet management.
+This C#‑driven inventory module keeps every log, ingot, and legendary sword neatly wrangled so the rest of the 
+game can focus on *survival* instead of spreadsheet management.
 
 | Piece                         | What it does                                                                                                                                                                                                                                                                                       | Why it matters                                                                                                                   |
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -126,9 +136,11 @@ This C#‑driven inventory module keeps every log, ingot, and legendary sword ne
 
 #### Quality‑of‑Life Highlights
 
-* **Drag‑n‑drop install** – add the three scripts, hook up a `Panel` + `SlotContainer` with `InventorySlot`s, and you’re done.
+* **Drag‑n‑drop install** – add the three scripts, hook up a `Panel` + `SlotContainer` with `InventorySlot`s, 
+and you’re done.
 * **Auto‑stacking & auto‑cleanup** – no more “why do I have five half‑full stacks of wood?” headaches.
-* **World‑drop integration** – right‑click tosses a physical `PackedScene` in front of the player, respecting orientation and distance.
+* **World‑drop integration** – right‑click tosses a physical `PackedScene` in front of the player, respecting 
+orientation and distance.
 * **Signal‑driven** – other systems just emit `OnItemPickedUp(Item, qty)`; inventory handles the rest.
 * **Self-organizing system?** – already coded. Empty a slot and the grid compacts itself like magic.
 
@@ -156,7 +168,8 @@ Instead of hard‑wiring logic into every single scene, I used **composition‑o
 #### Why I like this pattern
 
 * **Unlimited extensibility** – Need a fishing spot? Just create `FishingSpot.cs` → override `OnInteract()` → done.
-* **Zero coupling** – The player doesn’t know (or care) what it’s hitting as long as it talks the `InteractableObject` interface.
+* **Zero coupling** – The player doesn’t know (or care) what it’s hitting as long as it talks the 
+`InteractableObject` interface.
 * **Editor‑friendly** – Designers (…me) can tweak prompts and toggle interactivity without touching code.
 
 ```csharp
@@ -170,13 +183,15 @@ public class CraftingTable : InteractableObject
 }
 ```
 
-Throw that script on any mesh, set the prompt to **“Craft Items”**, and it *just works*—no extra wiring. That’s the kind of DX (Developer eXperience) I live for.
+Throw that script on any mesh, set the prompt to **“Craft Items”**, and it *just works*—no extra wiring. 
+That’s the kind of DX (Developer eXperience) I live for.
 
 ## 🛠 Crafting System
 
 ![crafting](/assets/crafting.gif)
 
-If the **Inventory** system is the warehouse, the **Crafting** system is the production line that turns raw wood, iron, and arcane goo into shiny swords (or at least into something you can whack goblins with).
+If the **Inventory** system is the warehouse, the **Crafting** system is the production line that turns raw wood, 
+iron, and arcane goo into shiny swords (or at least into something you can whack goblins with).
 
 | Piece                                                        | Where it lives           | What it does                                                                                                     |
 | ------------------------------------------------------------ | ------------------------ | ---------------------------------------------------------------------------------------------------------------- |
@@ -188,13 +203,16 @@ If the **Inventory** system is the warehouse, the **Crafting** system is the pro
 ### How it flows 🔄
 
 1. **Boot‑up**
-   `Crafting._Ready()` grabs the player `Inventory`, spawns one `CraftingRecipeUi` per recipe, wires them up, then hides the window until someone actually opens the station.
+   `Crafting._Ready()` grabs the player `Inventory`, spawns one `CraftingRecipeUi` per recipe, wires them up, 
+then hides the window until someone actually opens the station.
 
 2. **Open / Close**
-   Global signals `OnOpenCraftingMenu` & `OnCloseCraftingMenu` keep input nice and modal: mouse captured for gameplay, released for menus.
+   Global signals `OnOpenCraftingMenu` & `OnCloseCraftingMenu` keep input nice and modal: mouse captured for 
+gameplay, released for menus.
 
 3. **Eligibility check**
-   `CraftingRecipeUi.UpdateRecipe()` loops through each requirement and compares the player’s stash vs. the cost, toggling the **Craft** button accordingly and showing a neat *“3 / 5 Iron Ore”* read‑out.
+   `CraftingRecipeUi.UpdateRecipe()` loops through each requirement and compares the player’s stash vs. the cost, 
+toggling the **Craft** button accordingly and showing a neat *“3 / 5 Iron Ore”* read‑out.
 
 4. **Craft time!**
    When you click **Craft**, `Crafting.Craft()` atomically:
@@ -206,7 +224,8 @@ If the **Inventory** system is the warehouse, the **Crafting** system is the pro
 5. **Extending**
 
     * Want a **Cooking Pot** or **Alchemy Table**?
-      Just drop a new `Crafting` scene, give it a unique `CraftingTypeName`, and point its `Recipes` array to fresh `CraftingRecipe` resources.
+      Just drop a new `Crafting` scene, give it a unique `CraftingTypeName`, and point its `Recipes` array to 
+   fresh `CraftingRecipe` resources.
     * Requirements can stack arbitrarily (e.g., *2 × Iron Ingot + 1 × Leather Strip*).
     * Because recipes are plain `Resource`s, designers can author them in‑editor without touching code.
 
