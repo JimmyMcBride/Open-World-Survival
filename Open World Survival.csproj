@@ -4,7 +4,4 @@
         <EnableDynamicLoading>true</EnableDynamicLoading>
         <RootNamespace>OpenWorldSurvival</RootNamespace>
     </PropertyGroup>
-    <ItemGroup>
-        <Folder Include="scenes\"/>
-    </ItemGroup>
 </Project>

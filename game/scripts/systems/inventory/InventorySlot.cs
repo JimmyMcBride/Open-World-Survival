@@ -1,7 +1,7 @@
 using Godot;
 using OpenWorldSurvival.engine.core;
 using OpenWorldSurvival.game.scenes.modules.interactables;
-using OpenWorldSurvival.game.scenes.modules.player;
+using OpenWorldSurvival.game.scripts.actors.player;
 
 namespace OpenWorldSurvival.game.scripts.systems.inventory;
 

@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cdaj87uigc4ka" path="res://game/scenes/modules/items/log.tscn" id="15_a5ikc"]
 [ext_resource type="PackedScene" uid="uid://bo2ok4ak6ktmm" path="res://game/scenes/modules/items/ore.tscn" id="16_qeiu0"]
 [ext_resource type="PackedScene" uid="uid://epm54agsrb5q" path="res://game/scenes/modules/items/ingot.tscn" id="17_jno2a"]
-[ext_resource type="PackedScene" uid="uid://dliffqgckv2gi" path="res://game/scenes/modules/player/first_person_controller.tscn" id="18_v63t3"]
+[ext_resource type="PackedScene" uid="uid://dliffqgckv2gi" path="res://game/scripts/actors/player/first_person_controller.tscn" id="18_v63t3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2m2yu"]
 sky_top_color = Color(0.490606, 0.674402, 0.827793, 1)

@@ -1,12 +1,12 @@
 [gd_scene load_steps=36 format=4 uid="uid://d8a5vkm53puu"]
 
-[ext_resource type="Script" uid="uid://fj7dah8kj2uq" path="res://game/scripts/systems/ai/AiController.cs" id="1_ub561"]
+[ext_resource type="Script" uid="uid://fj7dah8kj2uq" path="res://game/scripts/actors/ai/AiController.cs" id="1_ub561"]
 [ext_resource type="Shader" uid="uid://kmsw3weai73k" path="res://game/resources/shaders/perfect-outline.gdshader" id="2_o6gxg"]
 [ext_resource type="Shader" uid="uid://ilkglvgk0tjv" path="res://game/resources/shaders/specular-cel-shader.gdshader" id="3_ub561"]
-[ext_resource type="Script" uid="uid://cfjn457y05in2" path="res://game/scripts/systems/ai/AiStateMachine.cs" id="4_0m5xl"]
-[ext_resource type="Script" uid="uid://bwoa0urs0ki7d" path="res://game/scripts/systems/ai/Wander.cs" id="5_v7p0v"]
-[ext_resource type="Script" uid="uid://dyqvtdhwu6afi" path="res://game/scripts/systems/ai/Chase.cs" id="6_jm7d6"]
-[ext_resource type="Script" uid="uid://cyyiumouaeg87" path="res://game/scripts/systems/ai/Flee.cs" id="7_spcyc"]
+[ext_resource type="Script" uid="uid://cfjn457y05in2" path="res://game/scripts/actors/ai/AiStateMachine.cs" id="4_0m5xl"]
+[ext_resource type="Script" uid="uid://bwoa0urs0ki7d" path="res://game/scripts/actors/ai/Wander.cs" id="5_v7p0v"]
+[ext_resource type="Script" uid="uid://dyqvtdhwu6afi" path="res://game/scripts/actors/ai/Chase.cs" id="6_jm7d6"]
+[ext_resource type="Script" uid="uid://cyyiumouaeg87" path="res://game/scripts/actors/ai/Flee.cs" id="7_spcyc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ub561"]
 render_priority = 0
