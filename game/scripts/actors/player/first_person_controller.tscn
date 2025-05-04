@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dliffqgckv2gi"]
+[gd_scene load_steps=42 format=3 uid="uid://dliffqgckv2gi"]
 
 [ext_resource type="Script" uid="uid://r1savr87opxj" path="res://game/scripts/actors/player/DebugPanel.cs" id="1_tqfva"]
 [ext_resource type="Script" uid="uid://doh73gfvcfnrl" path="res://game/scripts/actors/player/FirstPersonController.cs" id="2_0fevr"]
@@ -14,12 +14,21 @@
 [ext_resource type="PackedScene" uid="uid://dvhl1cnafqd0p" path="res://game/scenes/ui/crafting_recipe_ui.tscn" id="11_w8npb"]
 [ext_resource type="Resource" uid="uid://sivx7p5jkajg" path="res://game/scripts/data/recipes/ingot-recipe.tres" id="12_p76qo"]
 [ext_resource type="Script" uid="uid://cqjpgm3x8ub6q" path="res://game/scripts/systems/vitals/Health.cs" id="13_02njv"]
+[ext_resource type="Script" uid="uid://c6cgkg0dblawt" path="res://game/scripts/actors/common/FallDamage.cs" id="15_1ylde"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02njv"]
 bg_color = Color(0.00682823, 3.60981e-08, 0.119326, 0.572549)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ey5p4"]
 bg_color = Color(0.68914, 0.210546, 0.139009, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_1ylde"]
 font_size = 22
@@ -340,7 +349,7 @@ script = ExtResource("2_0fevr")
 [node name="Health" type="Node" parent="."]
 script = ExtResource("13_02njv")
 _postDeathAction = 1
-MaxHealth = 20
+MaxHealth = 100
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = 20.0
@@ -633,3 +642,6 @@ offset_right = -7.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="FallDamage" type="Node" parent="."]
+script = ExtResource("15_1ylde")

@@ -3,6 +3,7 @@ using Godot;
 
 namespace OpenWorldSurvival.game.scripts.systems.vitals;
 
+[GlobalClass]
 public partial class Health : Node
 {
     [Signal]
