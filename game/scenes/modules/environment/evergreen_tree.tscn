@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://b3yg8xhmf2b88"]
 
 [ext_resource type="PackedScene" uid="uid://b31cogpqwy6bl" path="res://game/resources/art/glb/evergreen-tree.glb" id="1_mpq0t"]
-[ext_resource type="Material" uid="uid://1kd2p1dkysk" path="res://game/resources/art/materials/leaves.tres" id="2_quj3r"]
+[ext_resource type="Material" uid="uid://1kd2p1dkysk" path="res://game/resources/art/materials/green_leaves.tres" id="2_quj3r"]
 [ext_resource type="Material" uid="uid://bxh1v1eqoy5uo" path="res://game/resources/art/materials/bark.tres" id="3_hrsjf"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2uw4c"]
