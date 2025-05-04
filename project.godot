@@ -26,6 +26,18 @@ window/size/mode=3
 
 project/assembly_name="Open World Survival"
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "green",
+"res://engine/": "teal",
+"res://game/": "blue",
+"res://game/globals/": "orange",
+"res://game/resources/": "red",
+"res://game/scenes/": "pink",
+"res://game/scripts/": "purple"
+}
+
 [filesystem]
 
 import/fbx/enabled=false
