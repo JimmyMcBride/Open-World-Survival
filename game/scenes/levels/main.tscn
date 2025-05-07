@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dnnhimix4nuuy" path="res://game/scenes/modules/props/hammer.tscn" id="13_g1i5y"]
 [ext_resource type="PackedScene" uid="uid://c5xnf82kfacxj" path="res://game/scenes/modules/interactables/smelting/smelter-station.tscn" id="14_bnibj"]
 [ext_resource type="PackedScene" uid="uid://cdaj87uigc4ka" path="res://game/scenes/modules/items/log.tscn" id="15_a5ikc"]
-[ext_resource type="PackedScene" uid="uid://bo2ok4ak6ktmm" path="res://game/scenes/modules/items/ore.tscn" id="16_qeiu0"]
+[ext_resource type="PackedScene" uid="uid://bo2ok4ak6ktmm" path="res://game/scenes/modules/items/ore.tscn" id="15_k23ve"]
 [ext_resource type="PackedScene" uid="uid://epm54agsrb5q" path="res://game/scenes/modules/items/ingot.tscn" id="17_jno2a"]
 [ext_resource type="PackedScene" uid="uid://dliffqgckv2gi" path="res://game/scripts/actors/player/first_person_controller.tscn" id="18_v63t3"]
 
@@ -118,7 +118,10 @@ shadow_enabled = true
 environment = SubResource("Environment_4fblo")
 
 [node name="cyclops" parent="." instance=ExtResource("3_g4pcc")]
-transform = Transform3D(0.813517, 0, 0.581541, 0, 1, 0, -0.581541, 0, 0.813517, -3.1694, 0, -15.8382)
+transform = Transform3D(-0.965495, 0, 0.26042, 0, 1, 0, -0.26042, 0, -0.965495, -8.89509, 0, 8.22179)
+
+[node name="cyclops2" parent="." instance=ExtResource("3_g4pcc")]
+transform = Transform3D(-0.358384, 0, -0.933575, 0, 1, 0, 0.933575, 0, -0.358384, 17.0609, 0, 7.03836)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_jbj1t")
@@ -200,11 +203,11 @@ transform = Transform3D(0.937404, 0, -0.348245, 0, 1, 0, 0.348245, 0, 0.937404, 
 [node name="log" parent="." instance=ExtResource("15_a5ikc")]
 transform = Transform3D(0.667716, 0, -0.744416, 0, 1, 0, 0.744416, 0, 0.667716, 3.19106, 0.187564, -21.0328)
 
-[node name="ore" parent="." instance=ExtResource("16_qeiu0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.59587, 0.16828, -21.0721)
+[node name="ore" parent="." instance=ExtResource("15_k23ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6305, 0.0501844, -20.3838)
 
-[node name="ore2" parent="." instance=ExtResource("16_qeiu0")]
-transform = Transform3D(0.612535, 0, 0.790444, 0, 1, 0, -0.790444, 0, 0.612535, 6.03761, 0.16828, -20.5997)
+[node name="ore2" parent="." instance=ExtResource("15_k23ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.10292, 0.0553834, -20.4012)
 
 [node name="ingot" parent="." instance=ExtResource("17_jno2a")]
 transform = Transform3D(0.89088, 0, 0.454239, 0, 1, 0, -0.454239, 0, 0.89088, 4.71115, 0.0808556, -21.9213)
@@ -215,3 +218,9 @@ material_override = SubResource("ShaderMaterial_1pit1")
 mesh = ExtResource("10_we2h2")
 
 [node name="Player" parent="." instance=ExtResource("18_v63t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.31466, 0, -17.5796)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.51, 0)
+use_collision = true
+size = Vector3(99.4629, 1, 86.7627)

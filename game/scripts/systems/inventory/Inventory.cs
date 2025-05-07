@@ -62,6 +62,11 @@ public partial class Inventory : Node
         Input.MouseMode = _window.Visible ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
     }
 
+    public bool IsOpen()
+    {
+        return _window.Visible;
+    }
+
     public void AddItem(Item item, int quantity = 1)
     {
         var slot = GetSlotToAdd(item);

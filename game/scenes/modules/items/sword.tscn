@@ -1,9 +1,9 @@
 [gd_scene load_steps=16 format=3 uid="uid://0411v10l1g3x"]
 
-[ext_resource type="Script" uid="uid://6fsig4uqurkd" path="res://game/scenes/modules/interactables/ItemInteraction.cs" id="1_xi35x"]
-[ext_resource type="Shader" uid="uid://daygbou3vdknc" path="res://game/resources/shaders/generic-cel-shader.gdshader" id="2_0ufhe"]
-[ext_resource type="ArrayMesh" uid="uid://c54w2epf0es6u" path="res://game/resources/art/meshes/sword.obj" id="2_18wc3"]
-[ext_resource type="Shader" uid="uid://ilkglvgk0tjv" path="res://game/resources/shaders/specular-cel-shader.gdshader" id="3_edv7u"]
+[ext_resource type="Script" uid="uid://6fsig4uqurkd" path="res://game/scenes/modules/interactables/ItemInteraction.cs" id="1_3v8vw"]
+[ext_resource type="ArrayMesh" uid="uid://c54w2epf0es6u" path="res://game/resources/art/meshes/sword.obj" id="2_kep50"]
+[ext_resource type="Shader" uid="uid://ilkglvgk0tjv" path="res://game/resources/shaders/specular-cel-shader.gdshader" id="3_52uvl"]
+[ext_resource type="Shader" uid="uid://daygbou3vdknc" path="res://game/resources/shaders/generic-cel-shader.gdshader" id="4_0dvyk"]
 
 [sub_resource type="Gradient" id="Gradient_rp1yt"]
 colors = PackedColorArray(0.0687983, 0.0687983, 0.0687983, 1, 0.796243, 0.796243, 0.796243, 1)
@@ -20,7 +20,7 @@ gradient = SubResource("Gradient_sea47")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4nufy"]
 render_priority = 0
-shader = ExtResource("3_edv7u")
+shader = ExtResource("3_52uvl")
 shader_parameter/albedo = Color(0.349598, 0.349606, 0.369909, 1)
 shader_parameter/color_gradient = SubResource("GradientTexture1D_h6ary")
 shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_gxktm")
@@ -47,7 +47,7 @@ gradient = SubResource("Gradient_xjcsy")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j8hop"]
 render_priority = 0
-shader = ExtResource("2_0ufhe")
+shader = ExtResource("4_0dvyk")
 shader_parameter/albedo = Color(0.325904, 0.2043, 0.0379054, 1)
 shader_parameter/color_gradient = SubResource("GradientTexture1D_r0rtp")
 shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_mg0vf")
@@ -60,12 +60,12 @@ points = PackedVector3Array(0.0275801, 1.10081, 0.00823345, 0.155013, 0.276306, 
 
 [node name="sword" type="RigidBody3D"]
 continuous_cd = true
-script = ExtResource("1_xi35x")
+script = ExtResource("1_3v8vw")
 ItemName = "sword"
 InteractPrompt = "[E] to pickup"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = ExtResource("2_18wc3")
+mesh = ExtResource("2_kep50")
 surface_material_override/0 = SubResource("ShaderMaterial_4nufy")
 surface_material_override/1 = SubResource("ShaderMaterial_j8hop")
 

@@ -1,5 +1,4 @@
 using Godot;
-using OpenWorldSurvival.engine.core;
 using OpenWorldSurvival.game.scripts.systems.vitals;
 
 namespace OpenWorldSurvival.game.scripts.actors.ai;
@@ -49,8 +48,6 @@ public partial class Attack : AiState
 
     private bool CanAttack()
     {
-        Logger.Debug($"Time: {_timeSinceLastAttack}");
-        Logger.Debug($"Can attack? {_timeSinceLastAttack > _attackRate}");
         return _timeSinceLastAttack > _attackRate;
     }
 }

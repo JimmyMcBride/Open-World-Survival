@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bedgwmny2qjdn"]
+[gd_resource type="Resource" script_class="EquipItem" load_steps=5 format=3 uid="uid://bedgwmny2qjdn"]
 
 [ext_resource type="Texture2D" uid="uid://b4pacvtwybsog" path="res://game/resources/art/icons/sword-icon.png" id="1_bikib"]
-[ext_resource type="Script" uid="uid://7mnixqarh1oo" path="res://game/scripts/systems/inventory/Item.cs" id="1_es5ut"]
-[ext_resource type="PackedScene" uid="uid://0411v10l1g3x" path="res://game/scenes/modules/items/item-sword.tscn" id="2_s2bgj"]
+[ext_resource type="PackedScene" uid="uid://b5gqx43fo5xnm" path="res://game/scenes/modules/equipables/sword/equip_object_sword.tscn" id="1_k8usb"]
+[ext_resource type="Script" uid="uid://d3aupkwcskuyw" path="res://game/scripts/systems/inventory/item/EquipItem.cs" id="2_6fx2j"]
+[ext_resource type="PackedScene" uid="uid://0411v10l1g3x" path="res://game/scenes/modules/items/sword.tscn" id="3_oag5w"]
 
 [resource]
-script = ExtResource("1_es5ut")
+script = ExtResource("2_6fx2j")
+EquipScene = ExtResource("1_k8usb")
 Icon = ExtResource("1_bikib")
 MaxStackSize = 1
 Name = "Sword"
-WorldItemScene = ExtResource("2_s2bgj")
+WorldItemScene = ExtResource("3_oag5w")
 metadata/_custom_type_script = "uid://7mnixqarh1oo"

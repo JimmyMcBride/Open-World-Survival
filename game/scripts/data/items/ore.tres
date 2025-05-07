@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bnb7apb47o53" path="res://game/resources/art/icons/ore-icon.png" id="1_3eeta"]
 [ext_resource type="PackedScene" uid="uid://bo2ok4ak6ktmm" path="res://game/scenes/modules/items/ore.tscn" id="2_kwowf"]
-[ext_resource type="Script" uid="uid://7mnixqarh1oo" path="res://game/scripts/systems/inventory/Item.cs" id="3_e3s8t"]
+[ext_resource type="Script" uid="uid://7mnixqarh1oo" path="res://game/scripts/systems/inventory/item/Item.cs" id="3_e3s8t"]
 
 [resource]
 script = ExtResource("3_e3s8t")

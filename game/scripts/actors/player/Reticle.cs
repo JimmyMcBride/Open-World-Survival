@@ -1,4 +1,5 @@
 using Godot;
+using OpenWorldSurvival.game.globals.signals;
 
 namespace OpenWorldSurvival.game.scripts.actors.player;
 
@@ -11,6 +12,18 @@ public partial class Reticle : CenterContainer
     public override void _Ready()
     {
         _dot = GetNode<Polygon2D>("dot");
+        GlobalSignals.Instance.OnInteractableCollision += OnInteractableCollision;
+        GlobalSignals.Instance.OnEnemyInRange += OnEnemyInRange;
+    }
+
+    private void OnEnemyInRange(bool colliding)
+    {
+        _dotColor = colliding ? Colors.Red : Colors.White;
+    }
+
+    private void OnInteractableCollision(bool colliding)
+    {
+        _dotColor = colliding ? Colors.Green : Colors.White;
     }
 
     // Called every frame. 'Delta' has been the elapsed time since the previous frame.

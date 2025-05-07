@@ -9,6 +9,12 @@ public partial class GlobalSignals : Node
     public delegate void OnCloseCraftingMenuEventHandler(string craftingType);
 
     [Signal]
+    public delegate void OnEnemyInRangeEventHandler(bool isColliding);
+
+    [Signal]
+    public delegate void OnInteractableCollisionEventHandler(bool isColliding);
+
+    [Signal]
     public delegate void OnItemPickedUpEventHandler(Item item, int amount);
 
     [Signal]
@@ -34,5 +40,15 @@ public partial class GlobalSignals : Node
     public void EmitOnCloseCraftingMenu(string craftingType)
     {
         EmitSignal(SignalName.OnCloseCraftingMenu, craftingType);
+    }
+
+    public void EmitOnInteractableColliding(bool isColliding)
+    {
+        EmitSignal(SignalName.OnInteractableCollision, isColliding);
+    }
+
+    public void EmitOnEnemyInRange(bool isColliding)
+    {
+        EmitSignal(SignalName.OnEnemyInRange, isColliding);
     }
 }

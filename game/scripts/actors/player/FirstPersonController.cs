@@ -4,6 +4,7 @@ using OpenWorldSurvival.engine.godot;
 using OpenWorldSurvival.game.globals.constants;
 using OpenWorldSurvival.game.globals.signals;
 using OpenWorldSurvival.game.scripts.systems.crafting;
+using OpenWorldSurvival.game.scripts.systems.inventory;
 
 namespace OpenWorldSurvival.game.scripts.actors.player;
 
@@ -14,7 +15,7 @@ public partial class FirstPersonController : CharacterBody3D
     private const float JumpVelocity = 4f;
     private const float MouseSensitivity = 0.005f;
     private const float SlideDuration = 1f;
-    private const float Acceleration = 5.0f;
+    private const float Acceleration = 15.0f;
     private const float BaseSpeed = 4.0f;
     private const float SlideSpeed = 8.0f;
     private const float SlideJumpSpeed = 10f;
@@ -37,6 +38,8 @@ public partial class FirstPersonController : CharacterBody3D
     private float _gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     private Node3D _head;
     private AnimationPlayer _headBobAnimationPlayer;
+    private bool _ignoreNextMouseMotion;
+    private Inventory _inventory;
     private bool _isDashing;
     private bool _isLerpingRoll;
     private bool _isSlideJumping;
@@ -59,12 +62,14 @@ public partial class FirstPersonController : CharacterBody3D
     public override void _Ready()
     {
         _speed = BaseSpeed;
+        _ignoreNextMouseMotion = false;
         _userInterface = GetNode<Control>("UserInterface");
         _debugPanel = _userInterface.GetNode<DebugPanel>("DebugPanel");
         _head = GetNode<Node3D>("Head");
         _jumpAnimationPlayer = GetNode<AnimationPlayer>("Head/JumpAnimation");
         _headBobAnimationPlayer = GetNode<AnimationPlayer>("Head/HeadBobAnimation");
         _crouchAnimation = GetNode<AnimationPlayer>("CrouchAnimation");
+        _inventory = GetNode<Inventory>("Inventory");
         _camera = GetNode<Camera3D>("Head/Camera");
         _ceilingDetection = GetNode<ShapeCast3D>("CrouchCeilingDetection");
         _collisionStanding = GetNode<CollisionShape3D>("CollisionStanding");
@@ -416,13 +421,27 @@ public partial class FirstPersonController : CharacterBody3D
             GlobalSignals.Instance.EmitOnCloseCraftingMenu(_smelting.CraftingTypeName);
 
         if (@event is InputEventMouseButton)
-            Input.MouseMode = Input.MouseModeEnum.Captured;
+        {
+            if (Input.MouseMode != Input.MouseModeEnum.Captured)
+            {
+                Input.MouseMode = Input.MouseModeEnum.Captured;
+                _ignoreNextMouseMotion = true;
+            }
+        }
         else if (Input.IsActionPressed("cancel"))
+        {
             Input.MouseMode = Input.MouseModeEnum.Visible;
+        }
 
         HandleJoystickInput();
 
         if (@event is not InputEventMouseMotion motion || Input.MouseMode != Input.MouseModeEnum.Captured) return;
+
+        if (_ignoreNextMouseMotion)
+        {
+            _ignoreNextMouseMotion = false;
+            return;
+        }
 
         if (_isDashing) return;
         if (Input.IsActionPressed(InputAction.FreeLook) || (_isSliding && IsOnFloor()))
@@ -441,6 +460,13 @@ public partial class FirstPersonController : CharacterBody3D
             headRotation.X = Mathf.Clamp(headRotation.X, Mathf.DegToRad(-89), Mathf.DegToRad(89));
             _head.Rotation = headRotation;
         }
+    }
+
+    public bool IsInAttackableState()
+    {
+        var isNormalOrCrouching = _state is "normal" or "crouching" or "sliding" || !IsOnFloor();
+        var isUiOpen = _crafting.IsCraftingWindowOpen() || _smelting.IsCraftingWindowOpen() || _inventory.IsOpen();
+        return isNormalOrCrouching && !isUiOpen;
     }
 
     private static void HandleJoystickInput()

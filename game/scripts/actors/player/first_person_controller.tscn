@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dliffqgckv2gi"]
+[gd_scene load_steps=47 format=3 uid="uid://dliffqgckv2gi"]
 
 [ext_resource type="Script" uid="uid://r1savr87opxj" path="res://game/scripts/actors/player/DebugPanel.cs" id="1_tqfva"]
 [ext_resource type="Script" uid="uid://doh73gfvcfnrl" path="res://game/scripts/actors/player/FirstPersonController.cs" id="2_0fevr"]
@@ -9,12 +9,17 @@
 [ext_resource type="Script" uid="uid://bdiqylrmf081y" path="res://game/scripts/systems/inventory/Inventory.cs" id="6_rkhjy"]
 [ext_resource type="PackedScene" uid="uid://i50fp7qfgveb" path="res://game/scenes/ui/inventory_slot.tscn" id="9_0wj7r"]
 [ext_resource type="Script" uid="uid://ue54xjvacfs1" path="res://game/scripts/systems/crafting/Crafting.cs" id="9_83d8a"]
+[ext_resource type="Script" uid="uid://4i2sldfnoesk" path="res://game/scripts/actors/player/EnemyInRangeDetector.cs" id="9_xt6nd"]
 [ext_resource type="Script" uid="uid://cyptp5sndyd8m" path="res://game/scripts/systems/crafting/CraftingRecipe.cs" id="10_f1wjp"]
+[ext_resource type="Script" uid="uid://7mnixqarh1oo" path="res://game/scripts/systems/inventory/item/Item.cs" id="10_xt6nd"]
 [ext_resource type="Resource" uid="uid://dxs6upkj210ax" path="res://game/scripts/data/recipes/sword_recipe.tres" id="11_pfopn"]
+[ext_resource type="Resource" uid="uid://3bn7bc3o3507" path="res://game/scripts/data/items/wood.tres" id="11_vgxgf"]
 [ext_resource type="PackedScene" uid="uid://dvhl1cnafqd0p" path="res://game/scenes/ui/crafting_recipe_ui.tscn" id="11_w8npb"]
 [ext_resource type="Resource" uid="uid://sivx7p5jkajg" path="res://game/scripts/data/recipes/ingot-recipe.tres" id="12_p76qo"]
+[ext_resource type="Resource" uid="uid://blkd5mhbeln1x" path="res://game/scripts/data/items/ingot.tres" id="12_wj6y4"]
 [ext_resource type="Script" uid="uid://cqjpgm3x8ub6q" path="res://game/scripts/systems/vitals/Health.cs" id="13_02njv"]
 [ext_resource type="Script" uid="uid://c6cgkg0dblawt" path="res://game/scripts/actors/common/FallDamage.cs" id="15_1ylde"]
+[ext_resource type="Script" uid="uid://8umcshf1xrnk" path="res://game/scripts/systems/equip/EquipController.cs" id="17_a3jpo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02njv"]
 bg_color = Color(0.00682823, 3.60981e-08, 0.119326, 0.572549)
@@ -409,6 +414,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="EquipOrigin" type="Node3D" parent="Head/Camera"]
+
+[node name="EnemyInRangeDetector" type="RayCast3D" parent="Head/Camera"]
+target_position = Vector3(0, 0, -1.5)
+script = ExtResource("9_xt6nd")
+
 [node name="JumpAnimation" type="AnimationPlayer" parent="Head"]
 libraries = {
 &"": SubResource("AnimationLibrary_qeg5r")
@@ -436,7 +447,6 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="DebugPanel" type="PanelContainer" parent="UserInterface"]
-visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -485,6 +495,7 @@ grow_vertical = 2
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("6_rkhjy")
+_starterItems = Array[ExtResource("10_xt6nd")]([ExtResource("11_vgxgf"), ExtResource("12_wj6y4"), ExtResource("12_wj6y4")])
 
 [node name="InventoryWindow" type="Panel" parent="Inventory"]
 visible = false
@@ -645,3 +656,7 @@ grow_vertical = 2
 
 [node name="FallDamage" type="Node" parent="."]
 script = ExtResource("15_1ylde")
+
+[node name="EquipController" type="Node" parent="."]
+script = ExtResource("17_a3jpo")
+metadata/_custom_type_script = "uid://8umcshf1xrnk"

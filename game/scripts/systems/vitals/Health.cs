@@ -43,7 +43,12 @@ public partial class Health : Node
         {
             var drop = _dropOnDeath.Instantiate<Node3D>();
             GetNode("/root/").AddChild(drop);
-            drop.Position = GetParent<Node3D>().Position;
+            drop.Position = drop.Position with
+            {
+                Y = GetParent<Node3D>().Position.Y + 1.5f,
+                Z = GetParent<Node3D>().Position.Z,
+                X = GetParent<Node3D>().Position.X
+            };
         }
 
         switch (_postDeathAction)

@@ -11,9 +11,9 @@ public partial class Item : Resource
     [Export] public string Name;
     [Export] public PackedScene WorldItemScene;
 
-    public bool OnUse(CharacterBody3D character)
+    public virtual bool OnUse(CharacterBody3D character)
     {
         Logger.Debug("Item " + Name + " was used!");
-        return true;
+        return false;
     }
 }

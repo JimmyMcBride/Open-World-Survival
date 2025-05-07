@@ -1,63 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://dlfn04gwkq2gi"]
+[gd_scene load_steps=4 format=3 uid="uid://dlfn04gwkq2gi"]
 
 [ext_resource type="ArrayMesh" uid="uid://c54w2epf0es6u" path="res://game/resources/art/meshes/sword.obj" id="1_r0xqa"]
-[ext_resource type="Shader" uid="uid://ilkglvgk0tjv" path="res://game/resources/shaders/specular-cel-shader.gdshader" id="2_11efn"]
-[ext_resource type="Shader" uid="uid://daygbou3vdknc" path="res://game/resources/shaders/generic-cel-shader.gdshader" id="2_ecb0f"]
-
-[sub_resource type="Gradient" id="Gradient_a5mqf"]
-colors = PackedColorArray(0.0687983, 0.0687983, 0.0687983, 1, 0.796243, 0.796243, 0.796243, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_11efn"]
-gradient = SubResource("Gradient_a5mqf")
-
-[sub_resource type="Gradient" id="Gradient_eu3o6"]
-offsets = PackedFloat32Array(0, 0.995968, 1)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_k2xvc"]
-gradient = SubResource("Gradient_eu3o6")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_11efn"]
-render_priority = 0
-shader = ExtResource("2_11efn")
-shader_parameter/albedo = Color(0.349598, 0.349606, 0.369909, 1)
-shader_parameter/color_gradient = SubResource("GradientTexture1D_11efn")
-shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_k2xvc")
-shader_parameter/rim_color = Color(0.613391, 0.61339, 0.61339, 1)
-shader_parameter/rim_power = 4.0
-shader_parameter/rim_strength = 0.8
-shader_parameter/specular_color = Color(1, 1, 1, 1)
-shader_parameter/specular_strength = 1.0
-shader_parameter/specular_steps = 2
-shader_parameter/glossiness = 64.0
-
-[sub_resource type="Gradient" id="Gradient_lcyt8"]
-offsets = PackedFloat32Array(0.421875, 0.991935)
-colors = PackedColorArray(0.117086, 0.0834626, 0.0114262, 1, 0.835513, 0.793389, 0.577812, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_n6ku2"]
-gradient = SubResource("Gradient_lcyt8")
-
-[sub_resource type="Gradient" id="Gradient_627ds"]
-offsets = PackedFloat32Array(0.429688, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_a6f1x"]
-gradient = SubResource("Gradient_627ds")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2xvc"]
-render_priority = 0
-shader = ExtResource("2_ecb0f")
-shader_parameter/albedo = Color(0.325904, 0.2043, 0.0379054, 1)
-shader_parameter/color_gradient = SubResource("GradientTexture1D_n6ku2")
-shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_a6f1x")
-shader_parameter/rim_color = Color(0.251199, 0.164408, 0.0231973, 1)
-shader_parameter/rim_power = 4.0
-shader_parameter/rim_strength = 0.8
+[ext_resource type="Material" uid="uid://cql5363b4k37r" path="res://game/resources/art/materials/steel.tres" id="2_11efn"]
+[ext_resource type="Material" uid="uid://b024kdcocguea" path="res://game/resources/art/materials/hilt.tres" id="3_11efn"]
 
 [node name="sword" type="Node3D"]
 transform = Transform3D(0.755516, 0, 0, 0, 0.755516, 0, 0, 0, 0.755516, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = ExtResource("1_r0xqa")
-surface_material_override/0 = SubResource("ShaderMaterial_11efn")
-surface_material_override/1 = SubResource("ShaderMaterial_k2xvc")
+surface_material_override/0 = ExtResource("2_11efn")
+surface_material_override/1 = ExtResource("3_11efn")

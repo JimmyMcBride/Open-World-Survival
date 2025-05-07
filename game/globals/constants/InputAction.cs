@@ -15,4 +15,5 @@ public static class InputAction
     public const string Inventory = "inventory";
     public const string Quit = "quit";
     public const string FreeLook = "free_look";
+    public const string Attack = "attack";
 }

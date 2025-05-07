@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://d8a5vkm53puu"]
+[gd_scene load_steps=44 format=4 uid="uid://d8a5vkm53puu"]
 
 [ext_resource type="Script" uid="uid://fj7dah8kj2uq" path="res://game/scripts/actors/ai/AiController.cs" id="1_ub561"]
 [ext_resource type="Shader" uid="uid://kmsw3weai73k" path="res://game/resources/shaders/perfect-outline.gdshader" id="2_o6gxg"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cqjpgm3x8ub6q" path="res://game/scripts/systems/vitals/Health.cs" id="9_ruodf"]
 [ext_resource type="PackedScene" uid="uid://bo2ok4ak6ktmm" path="res://game/scenes/modules/items/ore.tscn" id="10_ry2wg"]
 [ext_resource type="Script" uid="uid://c6cgkg0dblawt" path="res://game/scripts/actors/common/FallDamage.cs" id="11_ry2wg"]
+[ext_resource type="Script" uid="uid://bi574bi4r7vcr" path="res://game/scenes/modules/enemies/HealthBar3d.cs" id="12_chqlb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ub561"]
 render_priority = 0
@@ -938,6 +939,15 @@ min_space = 0.0
 max_space = 3.0
 snap = 1.0
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_ry2wg"]
+viewport_path = NodePath("Sprite3D/HealthBar3D/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chqlb"]
+bg_color = Color(0, 0, 0, 0.756863)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1fxd4"]
+bg_color = Color(0.968627, 0.105882, 0, 0.854902)
+
 [node name="cyclops" type="CharacterBody3D"]
 script = ExtResource("1_ub561")
 
@@ -948,8 +958,8 @@ bones/0/name = "Spine1"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, -2.13163e-14, -2.38418e-07, -8.33158e-08, 0.936954, -0.349452, 2.23387e-07, 0.349452, 0.936954, 0, 0.893723, -0.10049)
 bones/0/enabled = true
-bones/0/position = Vector3(-8.20249e-11, 0.869577, -0.10049)
-bones/0/rotation = Quaternion(0.219828, -0.0730748, 0.0180859, 0.97263)
+bones/0/position = Vector3(1.12417e-10, 0.869882, -0.10049)
+bones/0/rotation = Quaternion(0.216464, -0.072462, 0.0191073, 0.97341)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Spine2"
 bones/1/parent = 0
@@ -984,21 +994,21 @@ bones/5/parent = 2
 bones/5/rest = Transform3D(0.0126061, 0.941241, 0.337501, -0.997031, 0.037474, -0.0672691, -0.075964, -0.335651, 0.938919, 0.0399475, 0.152204, 0.0616455)
 bones/5/enabled = true
 bones/5/position = Vector3(0.0399475, 0.152204, 0.0616455)
-bones/5/rotation = Quaternion(-0.0526999, 0.102527, -0.691167, 0.713442)
+bones/5/rotation = Quaternion(-0.0582248, 0.108222, -0.690912, 0.712417)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "Arm.L"
 bones/6/parent = 5
 bones/6/rest = Transform3D(0.908372, 0.417457, -0.0242957, -0.398677, 0.84705, -0.351514, -0.126162, 0.328992, 0.935867, 0.0232012, 0.352374, -0.0155344)
 bones/6/enabled = true
-bones/6/position = Vector3(0.0207452, 0.352505, -0.0158476)
-bones/6/rotation = Quaternion(0.16108, 0.062121, -0.598866, 0.782019)
+bones/6/position = Vector3(0.0209882, 0.352492, -0.0158166)
+bones/6/rotation = Quaternion(0.159583, 0.0641887, -0.59889, 0.78214)
 bones/6/scale = Vector3(1, 1, 1)
 bones/7/name = "Forearm.L"
 bones/7/parent = 6
 bones/7/rest = Transform3D(0.990753, 0.13503, -0.0132248, -0.135454, 0.989998, -0.0394549, 0.00776496, 0.0408814, 0.999134, -1.36206e-07, 0.365763, 4.65661e-09)
 bones/7/enabled = true
 bones/7/position = Vector3(-1.36206e-07, 0.365763, 4.65661e-09)
-bones/7/rotation = Quaternion(0.0805531, -0.0184326, -0.05917, 0.994822)
+bones/7/rotation = Quaternion(0.08606, -0.0181672, -0.0593989, 0.994352)
 bones/7/scale = Vector3(1, 1, 1)
 bones/8/name = "Hand.L"
 bones/8/parent = 7
@@ -1012,21 +1022,21 @@ bones/9/parent = 2
 bones/9/rest = Transform3D(0.0126064, -0.941241, -0.3375, 0.997031, 0.0374742, -0.067269, 0.0759639, -0.33565, 0.938919, -0.0399474, 0.152204, 0.0616456)
 bones/9/enabled = true
 bones/9/position = Vector3(-0.0399474, 0.152204, 0.0616456)
-bones/9/rotation = Quaternion(-0.0529479, -0.103283, 0.691177, 0.713304)
+bones/9/rotation = Quaternion(-0.054535, -0.105129, 0.691235, 0.712859)
 bones/9/scale = Vector3(1, 1, 1)
 bones/10/name = "Arm.R"
 bones/10/parent = 9
 bones/10/rest = Transform3D(0.908372, -0.417457, 0.0242956, 0.398677, 0.84705, -0.351514, 0.126162, 0.328992, 0.935867, -0.0232013, 0.352374, -0.0155344)
 bones/10/enabled = true
-bones/10/position = Vector3(-0.025657, 0.352218, -0.0152297)
-bones/10/rotation = Quaternion(0.169498, -0.0528012, 0.605719, 0.775621)
+bones/10/position = Vector3(-0.0254139, 0.352233, -0.0152599)
+bones/10/rotation = Quaternion(0.170372, -0.051658, 0.606039, 0.775256)
 bones/10/scale = Vector3(1, 1, 1)
 bones/11/name = "Forearm.R"
 bones/11/parent = 10
 bones/11/rest = Transform3D(0.990753, -0.13503, 0.0132248, 0.135454, 0.989998, -0.039455, -0.0077649, 0.0408815, 0.999134, -3.72529e-09, 0.365763, 9.31323e-09)
 bones/11/enabled = true
 bones/11/position = Vector3(-3.72529e-09, 0.365763, 9.31323e-09)
-bones/11/rotation = Quaternion(0.0622944, 0.0151909, 0.075736, 0.995064)
+bones/11/rotation = Quaternion(0.0656153, 0.018179, 0.0806583, 0.994414)
 bones/11/scale = Vector3(1, 1, 1)
 bones/12/name = "Hand.R"
 bones/12/parent = 11
@@ -1040,28 +1050,28 @@ bones/13/parent = 0
 bones/13/rest = Transform3D(0.999438, 0.0333918, 0.00295138, 0.0324787, -0.942781, -0.331826, -0.00829777, 0.331736, -0.943335, 0.150735, 0.0265048, 0.0932685)
 bones/13/enabled = true
 bones/13/position = Vector3(0.150735, 0.0265048, 0.0932685)
-bones/13/rotation = Quaternion(0.894821, 0.0137281, -0.206651, 0.395478)
+bones/13/rotation = Quaternion(0.898493, 0.0119238, -0.206168, 0.387381)
 bones/13/scale = Vector3(1, 1, 0.999999)
 bones/14/name = "Shin.L"
 bones/14/parent = 13
 bones/14/rest = Transform3D(0.999979, 0.00590978, 0.00265555, -0.00521896, 0.97761, -0.210358, -0.00383926, 0.21034, 0.977621, -4.18368e-10, 0.358266, 1.39698e-09)
 bones/14/enabled = true
 bones/14/position = Vector3(-4.18368e-10, 0.358266, 1.39698e-09)
-bones/14/rotation = Quaternion(0.335543, 0.00154682, -0.00887612, 0.941982)
+bones/14/rotation = Quaternion(0.326216, 0.0015522, -0.00862938, 0.945255)
 bones/14/scale = Vector3(1, 1, 1)
 bones/15/name = "Leg.R"
 bones/15/parent = 0
 bones/15/rest = Transform3D(0.999438, -0.0333916, -0.00295184, -0.0324787, -0.942781, -0.331826, 0.00829727, 0.331736, -0.943335, -0.150735, 0.0265048, 0.0932686)
 bones/15/enabled = true
 bones/15/position = Vector3(-0.150735, 0.0265048, 0.0932686)
-bones/15/rotation = Quaternion(0.859282, -0.0467111, 0.353262, 0.366959)
+bones/15/rotation = Quaternion(0.861441, -0.0483085, 0.353765, 0.361159)
 bones/15/scale = Vector3(1, 1, 0.999999)
 bones/16/name = "Shin.R"
 bones/16/parent = 15
 bones/16/rest = Transform3D(0.999979, -0.00590979, -0.00265553, 0.00521897, 0.97761, -0.210359, 0.00383925, 0.21034, 0.977621, 2.65318e-08, 0.358266, -2.56114e-09)
 bones/16/enabled = true
 bones/16/position = Vector3(2.65318e-08, 0.358266, -2.56114e-09)
-bones/16/rotation = Quaternion(0.317493, -0.00155707, 0.00839865, 0.948222)
+bones/16/rotation = Quaternion(0.311314, -0.00156042, 0.00823519, 0.95027)
 bones/16/scale = Vector3(1, 1, 1)
 bones/17/name = "Foot.L"
 bones/17/parent = -1
@@ -1141,3 +1151,24 @@ MaxHealth = 50
 
 [node name="FallDamage" type="Node" parent="."]
 script = ExtResource("11_ry2wg")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 2.12964, 0)
+billboard = 2
+texture = SubResource("ViewportTexture_ry2wg")
+
+[node name="HealthBar3D" type="Node3D" parent="Sprite3D"]
+script = ExtResource("12_chqlb")
+HealthNodePath = NodePath("../../Health")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D/HealthBar3D"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(500, 50)
+
+[node name="ProgressBar" type="ProgressBar" parent="Sprite3D/HealthBar3D/SubViewport"]
+offset_right = 500.0
+offset_bottom = 50.0
+theme_override_styles/background = SubResource("StyleBoxFlat_chqlb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1fxd4")
+value = 50.0
