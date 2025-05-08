@@ -3,6 +3,7 @@ using OpenWorldSurvival.engine.core;
 using OpenWorldSurvival.game.globals.signals;
 using OpenWorldSurvival.game.scripts.systems.inventory;
 using InteractableObject = OpenWorldSurvival.game.scripts.systems.interactions.InteractableObject;
+using Item = OpenWorldSurvival.game.scripts.systems.inventory.item.Item;
 
 namespace OpenWorldSurvival.game.scenes.modules.interactables;
 

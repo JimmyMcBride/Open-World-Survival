@@ -161,14 +161,12 @@ public partial class FirstPersonController : CharacterBody3D
             if (_slideTimer <= 0)
             {
                 _isSliding = false;
-                // Extract yaw (Y-axis) and pitch (X-axis) from the camera's global rotation
                 var cameraGlobalBasis = _camera.GlobalTransform.Basis;
                 var yaw = Mathf.Atan2(cameraGlobalBasis.Z.X, cameraGlobalBasis.Z.Z);
                 var forward = cameraGlobalBasis.Z;
                 var pitch = Mathf.Asin(-forward.Y);
                 pitch = Mathf.Clamp(pitch, Mathf.DegToRad(-89), Mathf.DegToRad(89));
 
-                // Set pitch and yaw immediately, start lerping roll to 0
                 _startRoll = _camera.GlobalRotation.Z;
                 _head.GlobalRotation = new Vector3(pitch, yaw, _startRoll);
                 _targetRoll = 0f;
@@ -195,7 +193,6 @@ public partial class FirstPersonController : CharacterBody3D
             }
         }
 
-        // Handle roll interpolation
         if (_isLerpingRoll)
         {
             _lerpRollProgress += (float)delta / RollLerpDuration;
@@ -209,7 +206,6 @@ public partial class FirstPersonController : CharacterBody3D
             _head.GlobalRotation = new Vector3(_head.GlobalRotation.X, _head.GlobalRotation.Y, lerpedRoll);
         }
 
-        // Handle landing after the slide jump
         if (!_wasOnFloor && IsOnFloor() && _isSlideJumping)
         {
             _isSlideJumping = false;
@@ -254,7 +250,6 @@ public partial class FirstPersonController : CharacterBody3D
         direction = direction.Normalized();
         MoveAndSlide();
 
-        // Apply dash velocity during dash, ignoring input
         if (_isDashing)
         {
             var dashVelocity = _lockDirection * _speed;
@@ -262,7 +257,6 @@ public partial class FirstPersonController : CharacterBody3D
             return;
         }
 
-        // Skip normal movement updates if in slide jump
         if (_isSlideJumping)
         {
             var slideVelocity = _lockDirection * _speed;
@@ -312,7 +306,6 @@ public partial class FirstPersonController : CharacterBody3D
         _dashOnCooldown = true;
         _state = "dash";
         _speed = DashSpeed;
-        // Set dash direction based on the current velocity or forward direction
         _lockDirection = Velocity.Normalized();
         if (_lockDirection == Vector3.Zero)
             _lockDirection = -_head.GlobalTransform.Basis.Z.Normalized();
@@ -428,7 +421,7 @@ public partial class FirstPersonController : CharacterBody3D
                 _ignoreNextMouseMotion = true;
             }
         }
-        else if (Input.IsActionPressed("cancel"))
+        else if (Input.IsActionPressed(InputAction.Cancel))
         {
             Input.MouseMode = Input.MouseModeEnum.Visible;
         }

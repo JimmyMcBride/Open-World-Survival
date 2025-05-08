@@ -21,13 +21,18 @@ public partial class Health : Node
     public int CurrentHealth { get; private set; }
     [Export] public int MaxHealth { get; private set; }
 
+    private bool _isDead; // Flag to prevent multiple Die() calls
+
     public override void _Ready()
     {
         CurrentHealth = MaxHealth;
+        _isDead = false; // Initialize flag
     }
 
     public void TakeDamage(int damage)
     {
+        if (_isDead) return; // Exit if already dead
+
         CurrentHealth -= damage;
         EmitSignalOnHealthChanged(CurrentHealth, MaxHealth);
         EmitSignalOnTakeDamage();
@@ -37,6 +42,9 @@ public partial class Health : Node
 
     public void Die()
     {
+        if (_isDead) return; // Prevent re-execution
+        _isDead = true; // Mark as dead
+
         EmitSignalOnDie();
 
         if (_dropOnDeath != null)
@@ -66,6 +74,8 @@ public partial class Health : Node
 
     public void Heal(int amount)
     {
+        if (_isDead) return; // Prevent healing if dead
+
         CurrentHealth += amount;
 
         if (CurrentHealth > MaxHealth) CurrentHealth = MaxHealth;

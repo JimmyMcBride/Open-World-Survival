@@ -1,5 +1,5 @@
 using Godot;
-using OpenWorldSurvival.game.scripts.systems.inventory;
+using Item = OpenWorldSurvival.game.scripts.systems.inventory.item.Item;
 
 namespace OpenWorldSurvival.game.globals.signals;
 

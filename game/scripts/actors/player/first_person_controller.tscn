@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dliffqgckv2gi"]
+[gd_scene load_steps=48 format=3 uid="uid://dliffqgckv2gi"]
 
 [ext_resource type="Script" uid="uid://r1savr87opxj" path="res://game/scripts/actors/player/DebugPanel.cs" id="1_tqfva"]
 [ext_resource type="Script" uid="uid://doh73gfvcfnrl" path="res://game/scripts/actors/player/FirstPersonController.cs" id="2_0fevr"]
@@ -18,6 +18,7 @@
 [ext_resource type="Resource" uid="uid://sivx7p5jkajg" path="res://game/scripts/data/recipes/ingot-recipe.tres" id="12_p76qo"]
 [ext_resource type="Resource" uid="uid://blkd5mhbeln1x" path="res://game/scripts/data/items/ingot.tres" id="12_wj6y4"]
 [ext_resource type="Script" uid="uid://cqjpgm3x8ub6q" path="res://game/scripts/systems/vitals/Health.cs" id="13_02njv"]
+[ext_resource type="Resource" uid="uid://bedgwmny2qjdn" path="res://game/scripts/data/items/sword.tres" id="13_vgxgf"]
 [ext_resource type="Script" uid="uid://c6cgkg0dblawt" path="res://game/scripts/actors/common/FallDamage.cs" id="15_1ylde"]
 [ext_resource type="Script" uid="uid://8umcshf1xrnk" path="res://game/scripts/systems/equip/EquipController.cs" id="17_a3jpo"]
 
@@ -414,7 +415,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="EquipOrigin" type="Node3D" parent="Head/Camera"]
+[node name="MainHandOrigin" type="Node3D" parent="Head/Camera"]
+
+[node name="OffHandOrigin" type="Node3D" parent="Head/Camera"]
 
 [node name="EnemyInRangeDetector" type="RayCast3D" parent="Head/Camera"]
 target_position = Vector3(0, 0, -1.5)
@@ -495,7 +498,7 @@ grow_vertical = 2
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("6_rkhjy")
-_starterItems = Array[ExtResource("10_xt6nd")]([ExtResource("11_vgxgf"), ExtResource("12_wj6y4"), ExtResource("12_wj6y4")])
+_starterItems = Array[ExtResource("10_xt6nd")]([ExtResource("11_vgxgf"), ExtResource("12_wj6y4"), ExtResource("12_wj6y4"), ExtResource("13_vgxgf"), ExtResource("13_vgxgf")])
 
 [node name="InventoryWindow" type="Panel" parent="Inventory"]
 visible = false

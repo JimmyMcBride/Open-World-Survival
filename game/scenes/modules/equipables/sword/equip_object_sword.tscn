@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5gqx43fo5xnm"]
+[gd_scene load_steps=12 format=3 uid="uid://b5gqx43fo5xnm"]
 
 [ext_resource type="Script" uid="uid://ccb2wsjc58oji" path="res://game/scenes/modules/equipables/sword/SwordEquipable.cs" id="1_b20jc"]
 [ext_resource type="ArrayMesh" uid="uid://c54w2epf0es6u" path="res://game/resources/art/meshes/sword.obj" id="2_t1p6t"]
@@ -20,7 +20,7 @@ tracks/1/enabled = true
 tracks/1/path = NodePath("Visual")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0, -0.728939, 0, 0.684579)
+tracks/1/keys = PackedFloat32Array(0, 1, 0, -0.608761, 0, 0.793353)
 
 [sub_resource type="Animation" id="Animation_b5wnv"]
 resource_name = "attack"
@@ -38,7 +38,7 @@ tracks/1/enabled = true
 tracks/1/path = NodePath("Visual")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0, -0.728939, 0, 0.684579, 0.1, 1, 0.0608302, -0.822527, -0.0896165, 0.558317, 0.3, 1, -0.572298, -0.0839368, 0.0195451, 0.815504, 0.4, 1, -0.668856, 0.139716, 0.138157, 0.716954, 0.466667, 1, -0.668856, 0.139716, 0.138157, 0.716954, 0.566048, 1, -0.572298, -0.0839368, 0.0195451, 0.815504, 0.7, 1, 0, -0.728939, 0, 0.684579)
+tracks/1/keys = PackedFloat32Array(0, 1, 0, -0.608761, 0, 0.793353, 0.1, 1, 0.0608302, -0.822527, -0.0896165, 0.558317, 0.3, 1, -0.572298, -0.0839368, 0.0195451, 0.815504, 0.4, 1, -0.668856, 0.139716, 0.138157, 0.716954, 0.466667, 1, -0.668856, 0.139716, 0.138157, 0.716954, 0.566048, 1, -0.572298, -0.0839368, 0.0195451, 0.815504, 0.7, 1, 0, -0.608761, 0, 0.793353)
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
@@ -70,7 +70,71 @@ tracks/1/enabled = true
 tracks/1/path = NodePath("Visual")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, -0.668856, 0.139716, 0.138157, 0.716954, 0.1, 1, -0.565985, 0.255958, 0.0724386, 0.78032, 0.3, 1, -0.70489, -0.0805216, -0.248107, 0.659613, 0.4, 1, -0.772152, -0.134556, -0.231024, 0.576458, 0.7, 1, 0, -0.728939, 0, 0.684579)
+tracks/1/keys = PackedFloat32Array(0, 1, -0.668856, 0.139716, 0.138157, 0.716954, 0.1, 1, -0.565985, 0.255958, 0.0724386, 0.78032, 0.3, 1, -0.70489, -0.0805216, -0.248107, 0.659613, 0.4, 1, -0.772152, -0.134556, -0.231024, 0.576458, 0.7, 1, 0, -0.608761, 0, 0.793353)
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnHit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_mwbfr"]
+resource_name = "attack_2_off"
+length = 0.7
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.492, 0.038, -0.439, 0.1, 1, 0.294, 0.152, -0.431, 0.3, 1, 0.158, 0.095, -0.414, 0.4, 1, -0.343, 0.039, -0.414, 0.7, 1, -0.569, -0.712, -0.761)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.667913, -0.138007, -0.136506, 0.718479, 0.1, 1, -0.56616, -0.25585, -0.0723654, 0.780235, 0.3, 1, -0.704909, 0.0806474, 0.248189, 0.659546, 0.4, 1, -0.771973, 0.134485, 0.230715, 0.576837, 0.7, 1, 0, 0.608761, 0, 0.793353)
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnHit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_3hy82"]
+resource_name = "attack_off"
+length = 0.7
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.569, -0.712, -0.761, 0.1, 1, -0.569, -0.519, -0.761, 0.3, 1, -0.140076, -0.141733, -0.413924, 0.4, 1, 0.491, 0.037, -0.439, 0.4667, 1, 0.491, 0.037, -0.439, 0.566214, 1, -0.140076, -0.141733, -0.413924, 0.7, 1, -0.569, -0.712, -0.761)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.608761, 0, 0.793353, 0.1, 1, -0.105873, 0.817937, -0.0241037, 0.564968, 0.3, 1, -0.572298, -0.0839368, 0.0195451, 0.815504, 0.4, 1, -0.667913, -0.138007, -0.136506, 0.718479, 0.4667, 1, -0.667913, -0.138007, -0.136506, 0.718479, 0.566214, 1, -0.572298, -0.0839368, 0.0195451, 0.815504, 0.7, 1, 0, 0.608761, 0, 0.793353)
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
@@ -90,7 +154,9 @@ tracks/2/keys = {
 _data = {
 &"RESET": SubResource("Animation_i4ymg"),
 &"attack": SubResource("Animation_b5wnv"),
-&"attack_2": SubResource("Animation_bsbnl")
+&"attack_2": SubResource("Animation_bsbnl"),
+&"attack_2_off": SubResource("Animation_mwbfr"),
+&"attack_off": SubResource("Animation_3hy82")
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i4ymg"]
@@ -99,10 +165,9 @@ _data = {
 script = ExtResource("1_b20jc")
 
 [node name="Visual" type="Node3D" parent="."]
-transform = Transform3D(-0.0627036, 0, -0.998032, 0, 1, 0, 0.998032, 0, -0.0627036, 0.569366, -0.71202, -0.761459)
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0.569366, -0.71202, -0.761459)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Visual"]
-transform = Transform3D(0.99527, -0.0971109, -0.00248137, 0.0971109, 0.993969, 0.0509497, -0.00248137, -0.0509497, 0.998698, 0.0734544, 0, -0.140005)
 cast_shadow = 0
 mesh = ExtResource("2_t1p6t")
 surface_material_override/0 = ExtResource("3_h6ye3")

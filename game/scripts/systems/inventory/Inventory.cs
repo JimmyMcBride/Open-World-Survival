@@ -3,6 +3,7 @@ using System.Linq;
 using Godot;
 using Godot.Collections;
 using OpenWorldSurvival.game.globals.constants;
+using OpenWorldSurvival.game.scripts.systems.inventory.item;
 using GlobalSignals = OpenWorldSurvival.game.globals.signals.GlobalSignals;
 using Logger = OpenWorldSurvival.engine.core.Logger;
 

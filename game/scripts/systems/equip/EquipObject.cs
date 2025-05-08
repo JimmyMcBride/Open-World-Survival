@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using OpenWorldSurvival.engine.core;
 using OpenWorldSurvival.game.scripts.actors.player;
 
 namespace OpenWorldSurvival.game.scripts.systems.equip;
@@ -8,16 +9,18 @@ public partial class EquipObject : Node3D
 {
     protected AnimationPlayer AnimationPlayer;
     protected FirstPersonController Player;
+    protected bool IsMainHand { get; private set; }
 
     protected void Initialize()
     {
         AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-        // Player = (FirstPersonController)GetParent().GetParent().GetParent().GetParent();
+        Player = (FirstPersonController)GetParent().GetParent().GetParent().GetParent();
     }
 
-    public void SetPlayer(FirstPersonController player)
+    public virtual void SetHand(bool isMainHand)
     {
-        Player = player;
+        Logger.Debug($"SetHand as main: {isMainHand}");
+        IsMainHand = isMainHand;
     }
 
     protected virtual void OnPrimaryAction()

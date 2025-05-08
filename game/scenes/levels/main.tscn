@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://cfgym5atwpbg5"]
+[gd_scene load_steps=30 format=3 uid="uid://cfgym5atwpbg5"]
 
 [ext_resource type="Script" uid="uid://rerpxysuvmss" path="res://game/scenes/levels/Main.cs" id="1_7sb6g"]
 [ext_resource type="PackedScene" uid="uid://dlfn04gwkq2gi" path="res://game/scenes/modules/props/sword.tscn" id="2_isoho"]
+[ext_resource type="PackedScene" uid="uid://bsml1u1tq0axj" path="res://game/scenes/modules/enemies/advanced_cyclops.tscn" id="3_7sb6g"]
 [ext_resource type="PackedScene" uid="uid://d8a5vkm53puu" path="res://game/scenes/modules/enemies/cyclops.tscn" id="3_g4pcc"]
 [ext_resource type="PackedScene" uid="uid://0pq11ylerd08" path="res://game/scenes/modules/environment/bushy_tree.tscn" id="4_1hv6u"]
 [ext_resource type="PackedScene" uid="uid://cef4c8nejme1i" path="res://game/scenes/modules/environment/leafy_tree.tscn" id="6_y3olf"]
@@ -120,8 +121,14 @@ environment = SubResource("Environment_4fblo")
 [node name="cyclops" parent="." instance=ExtResource("3_g4pcc")]
 transform = Transform3D(-0.965495, 0, 0.26042, 0, 1, 0, -0.26042, 0, -0.965495, -8.89509, 0, 8.22179)
 
+[node name="AdvancedCyclops" parent="." instance=ExtResource("3_7sb6g")]
+transform = Transform3D(-0.719122, 0, -0.694884, 0, 1, 0, 0.694884, 0, -0.719122, 4.10979, 0, 5.02507)
+
 [node name="cyclops2" parent="." instance=ExtResource("3_g4pcc")]
 transform = Transform3D(-0.358384, 0, -0.933575, 0, 1, 0, 0.933575, 0, -0.358384, 17.0609, 0, 7.03836)
+
+[node name="cyclops3" parent="." instance=ExtResource("3_g4pcc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.6383)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_jbj1t")

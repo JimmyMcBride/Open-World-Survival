@@ -1,7 +1,7 @@
 using Godot;
 using Logger = OpenWorldSurvival.engine.core.Logger;
 
-namespace OpenWorldSurvival.game.scripts.systems.inventory;
+namespace OpenWorldSurvival.game.scripts.systems.inventory.item;
 
 [GlobalClass]
 public partial class Item : Resource
