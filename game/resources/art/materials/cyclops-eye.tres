@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://c2u1xxp6v6apu"]
+
+[ext_resource type="Shader" uid="uid://ilkglvgk0tjv" path="res://game/resources/shaders/specular-cel-shader.gdshader" id="1_r3wou"]
+
+[sub_resource type="Gradient" id="Gradient_fxnnl"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nftq1"]
+gradient = SubResource("Gradient_fxnnl")
+
+[sub_resource type="Gradient" id="Gradient_3g64c"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pstpf"]
+gradient = SubResource("Gradient_3g64c")
+
+[resource]
+resource_name = "eye"
+render_priority = 0
+shader = ExtResource("1_r3wou")
+shader_parameter/albedo = Color(0.83637, 0.242162, 0.213175, 1)
+shader_parameter/color_gradient = SubResource("GradientTexture1D_nftq1")
+shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_pstpf")
+shader_parameter/rim_color = Color(0.548963, 0.548963, 0.548963, 1)
+shader_parameter/rim_power = 4.0
+shader_parameter/rim_strength = 0.8
+shader_parameter/specular_color = Color(1, 0.690525, 0.681923, 0.0980392)
+shader_parameter/specular_strength = 2.0
+shader_parameter/specular_steps = 16
+shader_parameter/glossiness = 64.0

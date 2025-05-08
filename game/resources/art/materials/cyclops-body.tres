@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://opek4bywt0pg"]
+
+[ext_resource type="Shader" uid="uid://ilkglvgk0tjv" path="res://game/resources/shaders/specular-cel-shader.gdshader" id="1_w5vly"]
+
+[sub_resource type="Gradient" id="Gradient_0m5xl"]
+colors = PackedColorArray(0.0495711, 0.032648, 0.0820352, 1, 0.801564, 0.842229, 0.950547, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_v7p0v"]
+gradient = SubResource("Gradient_0m5xl")
+
+[sub_resource type="Gradient" id="Gradient_jm7d6"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_spcyc"]
+gradient = SubResource("Gradient_jm7d6")
+
+[resource]
+resource_name = "body"
+render_priority = 0
+shader = ExtResource("1_w5vly")
+shader_parameter/albedo = Color(0.212305, 0.212305, 0.212305, 1)
+shader_parameter/color_gradient = SubResource("GradientTexture1D_v7p0v")
+shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_spcyc")
+shader_parameter/rim_color = Color(0.194754, 0.401434, 0.532393, 1)
+shader_parameter/rim_power = 4.0
+shader_parameter/rim_strength = 0.3
+shader_parameter/specular_color = Color(0.752941, 0.823529, 0.921569, 0.00392157)
+shader_parameter/specular_strength = 2.0
+shader_parameter/specular_steps = 16
+shader_parameter/glossiness = 32.0
