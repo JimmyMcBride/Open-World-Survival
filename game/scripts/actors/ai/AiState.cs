@@ -8,14 +8,14 @@ public partial class AiState : Node
     protected static readonly Random Rng = new();
     [Export] private NodePath _controllerPath;
 
-    protected AiController Controller { get; private set; }
+    protected AbstractAiController Controller { get; private set; }
     protected AiStateMachine StateMachine { get; private set; }
     protected bool IsActive { get; private set; }
 
     public void Initialize()
     {
         StateMachine = GetParent<AiStateMachine>();
-        Controller = GetNode<AiController>(_controllerPath);
+        Controller = GetNode<AbstractAiController>(_controllerPath);
     }
 
     public virtual void Enter()

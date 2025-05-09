@@ -1,8 +1,10 @@
 using Godot;
+using OpenWorldSurvival.engine.core;
+using OpenWorldSurvival.game.scripts.actors.ai;
 
-namespace OpenWorldSurvival.game.scripts.actors.ai;
+namespace OpenWorldSurvival.game.scenes.modules.enemies.rock;
 
-public partial class AiController : AbstractAiController
+public partial class RockSolid : AbstractAiController
 {
     private NavigationAgent3D _agent;
     private AiStateMachine _aiStateMachine;
@@ -13,10 +15,10 @@ public partial class AiController : AbstractAiController
     private float _targetYRotation;
     [Export] public float MaxBlendSpeed = 3f;
     [Export] public float RunAcceleration = 8f;
-    [Export] public float RunSpeed = 3;
+    [Export] public float RunSpeed = 4;
     [Export] public float WalkAcceleration = 2f;
 
-    [Export] public float WalkSpeed = 1;
+    [Export] public float WalkSpeed = 2;
     // public float PlayerDistance { get; private set; }
     // public CharacterBody3D Player { get; private set; }
 
@@ -27,6 +29,8 @@ public partial class AiController : AbstractAiController
         _gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
         _aiStateMachine = GetNode<AiStateMachine>("AiStateMachine");
         AnimTree = GetNode<AnimationTree>("AnimationTree");
+        AnimTree.Set("parameters/conditions/chase_or_wander", true);
+        Logger.Debug("chase_or_wander true");
 
         // Signal -> state-machine callback
         _agent.TargetReached += OnTargetReached;
@@ -93,9 +97,19 @@ public partial class AiController : AbstractAiController
     {
         var speed = new Vector3(Velocity.X, 0, Velocity.Z).Length();
 
-        var blendPos = Mathf.Clamp(speed / MaxBlendSpeed * 3f, 0f, 3f);
+        float blendPos;
 
-        AnimTree.Set("parameters/blend_position", blendPos);
+        if (speed <= WalkSpeed)
+            // Interpolate between 0 (idle) and 1 (walk) for speeds up to WalkSpeed
+            blendPos = Mathf.Lerp(0f, 1f, speed / WalkSpeed);
+        else
+            // Interpolate between 1 (walk) and 3 (run) for speeds between WalkSpeed and RunSpeed
+            blendPos = Mathf.Lerp(1f, 3f, (speed - WalkSpeed) / (RunSpeed - WalkSpeed));
+
+        // Clamp to ensure blendPos stays within 0 to 3
+        blendPos = Mathf.Clamp(blendPos, 0f, 3f);
+
+        AnimTree.Set("parameters/Movement/blend_position", blendPos);
     }
 
     public override void MoveToPosition(Vector3 target, bool adjust = true)

@@ -1,4 +1,5 @@
 using Godot;
+using OpenWorldSurvival.engine.core;
 
 namespace OpenWorldSurvival.game.scripts.actors.ai;
 
@@ -13,12 +14,14 @@ public partial class Chase : AiState
     {
         base.Enter();
         Controller.SetIsRunning(true);
+        Controller.AnimTree.Set("parameters/conditions/chase_or_wander", true);
     }
 
     public override void Exit()
     {
         base.Exit();
         Controller.SetIsRunning(false);
+        Controller.AnimTree.Set("parameters/conditions/chase_or_wander", false);
     }
 
     public override void Update(double delta)

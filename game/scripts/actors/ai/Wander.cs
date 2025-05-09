@@ -1,4 +1,5 @@
 using Godot;
+using OpenWorldSurvival.engine.core;
 
 namespace OpenWorldSurvival.game.scripts.actors.ai;
 
@@ -16,7 +17,15 @@ public partial class Wander : AiState
         base.Enter();
         _home = Controller.Position;
         var wait = Mathf.Lerp(MinWaitTime, MaxWaitTime, Rng.NextSingle());
+        Controller.AnimTree?.Set("parameters/conditions/chase_or_wander", true);
         GetTree().CreateTimer(wait).Timeout += NewDestination;
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        
+        Controller.AnimTree.Set("parameters/conditions/chase_or_wander", false);
     }
 
     private void NewDestination()
