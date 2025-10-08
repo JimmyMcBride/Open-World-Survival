@@ -3,8 +3,8 @@
 [ext_resource type="Shader" uid="uid://daygbou3vdknc" path="res://game/resources/shaders/generic-cel-shader.gdshader" id="1_ynfw1"]
 
 [sub_resource type="Gradient" id="Gradient_lcyt8"]
-offsets = PackedFloat32Array(0.600806, 0.991935)
-colors = PackedColorArray(0.0380197, 0.029696, 0.00503882, 1, 0.835513, 0.793389, 0.577812, 1)
+offsets = PackedFloat32Array(0, 0.210938, 0.496094, 0.734375, 0.991935)
+colors = PackedColorArray(0.117209, 0.056842, 0.00923127, 1, 0.196608, 0.13981, 0.08425, 1, 0.420959, 0.374243, 0.296222, 1, 0.504132, 0.461154, 0.374806, 1, 0.923704, 0.899581, 0.771228, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_r0rtp"]
 gradient = SubResource("Gradient_lcyt8")

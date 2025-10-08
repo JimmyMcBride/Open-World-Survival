@@ -7,7 +7,7 @@ public partial class Tree : Node3D
 {
     private readonly string[] _leafMaterials =
     [
-        // "res://game/resources/art/materials/green_leaves.tres",
+        "res://game/resources/art/materials/green_leaves.tres",
         "res://game/resources/art/materials/yellow_leaves.tres",
         "res://game/resources/art/materials/orange_leaves.tres",
         "res://game/resources/art/materials/red_leaves.tres"

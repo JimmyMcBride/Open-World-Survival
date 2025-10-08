@@ -3,15 +3,14 @@
 [ext_resource type="Shader" uid="uid://daygbou3vdknc" path="res://game/resources/shaders/generic-cel-shader.gdshader" id="1_xcelk"]
 
 [sub_resource type="Gradient" id="Gradient_0c4ub"]
-offsets = PackedFloat32Array(0.581967, 0.995968)
-colors = PackedColorArray(0.0613008, 0.0479153, 0.0900121, 1, 0.712548, 0.696897, 0.844025, 1)
+offsets = PackedFloat32Array(0, 0.282609, 0.568841, 0.742754, 0.995968)
+colors = PackedColorArray(0.0613008, 0.0479153, 0.0900121, 1, 0.158436, 0.144712, 0.202475, 1, 0.268196, 0.254091, 0.329555, 1, 0.373736, 0.359264, 0.451749, 1, 0.875463, 0.869526, 0.936844, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_35aor"]
 gradient = SubResource("Gradient_0c4ub")
 
 [sub_resource type="Gradient" id="Gradient_f5oos"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.485703, 0.485704, 0.485703, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_mub8j"]
 gradient = SubResource("Gradient_f5oos")

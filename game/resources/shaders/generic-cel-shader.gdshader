@@ -37,10 +37,28 @@ void fragment() {
 }
 
 
+//void light() {
+	//// Called for every pixel for every light affecting the material.
+	//float dotproduct = clamp(dot(NORMAL, LIGHT), -0.9, 0.9);
+	//float sample = clamp((dotproduct + 1.0) * ATTENUATION / 2.1, 0.05, 0.95);
+	//vec4 shaded = texture(color_gradient, vec2(sample, 0.0));
+	//DIFFUSE_LIGHT += clamp((shaded.rgb * LIGHT_COLOR), 0.0, 1.0);
+//}
+
 void light() {
-	// Called for every pixel for every light affecting the material.
-	float dotproduct = clamp(dot(NORMAL, LIGHT), -0.9, 0.9);
-	float sample = clamp((dotproduct + 1.0) * ATTENUATION / 2.1, 0.05, 0.95);
-	vec4 shaded = texture(color_gradient, vec2(sample, 0.0));
-	DIFFUSE_LIGHT += clamp((shaded.rgb * LIGHT_COLOR), 0.0, 1.0);
+    // Calculate base Lambertian term
+    float lambertian = max(dot(NORMAL, LIGHT), 0.0);
+
+    // Add an ambient term to ensure a minimum brightness
+    float ambient_strength = 0.2; // Adjust this value (0.0 to 1.0) to control ambient light
+    float lighting = lambertian + ambient_strength;
+
+    // Quantize the lighting for cel-shading effect
+    float levels = 4.0;
+    lighting = floor(lighting * levels) / levels;
+
+    // Adjust the sample range to avoid overly dark areas and account for ambient
+    float sample = clamp(lighting * ATTENUATION, 0.2, 1.0); // Raised minimum from 0.05 to 0.2
+    vec4 shaded = texture(color_gradient, vec2(sample, 0.0));
+    DIFFUSE_LIGHT += clamp((shaded.rgb * LIGHT_COLOR), 0.0, 1.0);
 }

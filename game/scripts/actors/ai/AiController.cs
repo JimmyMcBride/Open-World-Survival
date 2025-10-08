@@ -15,7 +15,6 @@ public partial class AiController : AbstractAiController
     [Export] public float RunAcceleration = 8f;
     [Export] public float RunSpeed = 3;
     [Export] public float WalkAcceleration = 2f;
-
     [Export] public float WalkSpeed = 1;
     // public float PlayerDistance { get; private set; }
     // public CharacterBody3D Player { get; private set; }

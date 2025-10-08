@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://c78lbkw0rinjs"]
+
+[ext_resource type="Shader" uid="uid://2iyuom6wko82" path="res://game/resources/shaders/supersonic.gdshader" id="1_dmlq6"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_q7k8y"]
+noise_type = 5
+frequency = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1s1as"]
+noise = SubResource("FastNoiseLite_q7k8y")
+
+[resource]
+shader = ExtResource("1_dmlq6")
+shader_parameter/noise = SubResource("NoiseTexture2D_1s1as")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_count = 2.0
+shader_parameter/line_density = 1.0
+shader_parameter/line_faloff = 1.0
+shader_parameter/mask_size = 0.0
+shader_parameter/mask_edge = 1.0
+shader_parameter/animation_speed = 20.0

@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk8lnksbcobya"]
+
+[ext_resource type="Script" uid="uid://r1savr87opxj" path="res://game/scripts/actors/player/DebugPanel.cs" id="1_3v1hr"]
+[ext_resource type="Script" uid="uid://blf0u8efhk5b" path="res://game/scripts/actors/player/Reticle.cs" id="2_3b0jw"]
+[ext_resource type="Material" uid="uid://c78lbkw0rinjs" path="res://game/resources/art/materials/super_sonic.tres" id="3_3v1hr"]
+
+[sub_resource type="Theme" id="Theme_wdf0f"]
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+
+[node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="DebugPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -453.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme = SubResource("Theme_wdf0f")
+script = ExtResource("1_3v1hr")
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugPanel"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Reticle" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_3b0jw")
+
+[node name="dot" type="Polygon2D" parent="Reticle"]
+polygon = PackedVector2Array(-1, -1, 1, -1, 1, 1, -1, 1)
+
+[node name="SuperSonicEffect" type="ColorRect" parent="."]
+visible = false
+material = ExtResource("3_3v1hr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
