@@ -80,7 +80,7 @@ public partial class InventorySlot : Button
 
     public void RemoveItem(int quantity)
     {
-        Logger.Debug("Removing Item");
+        Log.Debug("Removing Item");
         Quantity -= quantity;
         UpdateQuantityText();
 
@@ -95,7 +95,7 @@ public partial class InventorySlot : Button
 
     private void DropItem()
     {
-        Logger.Debug("Dropping Item");
+        Log.Debug("Dropping Item");
 
         Item.Match(
             some =>
@@ -103,7 +103,7 @@ public partial class InventorySlot : Button
                 var worldItem = (ItemInteraction)some.WorldItemScene?.Instantiate();
                 if (worldItem == null)
                 {
-                    Logger.Error("Item is null! :(");
+                    Log.Error("Item is null! :(");
                     return;
                 }
 
@@ -132,7 +132,7 @@ public partial class InventorySlot : Button
                 if (Quantity == 0)
                     Inventory.ReorganizeInventory();
             },
-            () => { Logger.Error("Item is null!"); }
+            () => { Log.Error("Item is null!"); }
         );
     }
 

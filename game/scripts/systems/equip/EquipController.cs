@@ -49,9 +49,9 @@ public partial class EquipController : Node
         _mainHandItem = item;
 
         // var parent = GetParent<FirstPersonController>();
-        // Logger.Debug($"Setting main hand equip object player to {parent.Name}");
+        // Log.Debug($"Setting main hand equip object player to {parent.Name}");
         // _mainHandObject.SetPlayer(parent);
-        Logger.Debug($"Equipped {item.Name} to main hand");
+        Log.Debug($"Equipped {item.Name} to main hand");
         _mainHandObject.SetHand(true); // True for the main hand
     }
 
@@ -59,7 +59,7 @@ public partial class EquipController : Node
     {
         if (_offHandDisabled)
         {
-            Logger.Debug("Cannot equip off-hand: 2H weapon is equipped.");
+            Log.Debug("Cannot equip off-hand: 2H weapon is equipped.");
             return;
         }
 
@@ -72,7 +72,7 @@ public partial class EquipController : Node
         // Check if the item can be equipped in off-hand
         if (item.Type == EquipItem.EquipmentType.Weapon && item.IsTwoHanded)
         {
-            Logger.Debug("Cannot equip 2H weapon in off-hand.");
+            Log.Debug("Cannot equip 2H weapon in off-hand.");
             return;
         }
 
@@ -86,9 +86,9 @@ public partial class EquipController : Node
         _offHandItem = item;
 
         // var parent = GetParent<FirstPersonController>();
-        // Logger.Debug($"Setting off-hand equip object player to {parent.Name}");
+        // Log.Debug($"Setting off-hand equip object player to {parent.Name}");
         // _offHandObject.SetPlayer(parent);
-        Logger.Debug($"Equipped {item.Name} to off hand");
+        Log.Debug($"Equipped {item.Name} to off hand");
         _offHandObject.SetHand(false); // False for off-hand
     }
 
@@ -107,7 +107,7 @@ public partial class EquipController : Node
     public void UnequipOffHand()
     {
         if (_offHandItem == null) return;
-        Logger.Debug("Unequping off hand");
+        Log.Debug("Unequping off hand");
 
         _offHandObject.QueueFree();
         _offHandObject = null;

@@ -3,7 +3,7 @@ using Godot;
 
 namespace OpenWorldSurvival.engine.core;
 
-public partial class Logger : Node
+public partial class Log : Node
 {
     // Enum to define log levels
     public enum LogLevel
@@ -14,16 +14,16 @@ public partial class Logger : Node
         Error
     }
 
-    private static Logger _instance;
+    private static Log _instance;
     private string _logFilePath;
 
     // Singleton pattern to ensure only one instance of logger
-    public static Logger Instance
+    public static Log Instance
     {
         get
         {
             if (_instance != null) return _instance;
-            _instance = new Logger();
+            _instance = new Log();
             _instance._logFilePath = "user://game.log"; // Define your log file path here
 
             return _instance;
@@ -31,7 +31,7 @@ public partial class Logger : Node
     }
 
     // Method to log a message with different log levels
-    public void Log(string message, LogLevel level = LogLevel.Info)
+    public void Logger(string message, LogLevel level = LogLevel.Info)
     {
         var formattedMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] [{level}] {message}";
 
@@ -54,21 +54,21 @@ public partial class Logger : Node
     // Utility methods for easy access
     public static void Debug(string message)
     {
-        Instance.Log(message, LogLevel.Debug);
+        Instance.Logger(message, LogLevel.Debug);
     }
 
     public static void Info(string message)
     {
-        Instance.Log(message);
+        Instance.Logger(message);
     }
 
     public static void Warning(string message)
     {
-        Instance.Log(message, LogLevel.Warning);
+        Instance.Logger(message, LogLevel.Warning);
     }
 
     public static void Error(string message)
     {
-        Instance.Log(message, LogLevel.Error);
+        Instance.Logger(message, LogLevel.Error);
     }
 }

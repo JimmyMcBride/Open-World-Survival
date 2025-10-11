@@ -45,7 +45,7 @@ public partial class EnemyInRangeDetector : RayCast3D
         // Emit signal only if the state has changed to avoid spamming
         if (isCollidingWithValidBody != _lastCollisionState)
         {
-            Logger.Debug($"****Changed collision state to {isCollidingWithValidBody}****");
+            Log.Debug($"****Changed collision state to {isCollidingWithValidBody}****");
             _lastCollisionState = isCollidingWithValidBody;
             GlobalSignals.Instance.EmitOnEnemyInRange(isCollidingWithValidBody);
         }

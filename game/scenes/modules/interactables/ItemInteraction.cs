@@ -25,7 +25,7 @@ public partial class ItemInteraction : InteractableObject
 
     public override void OnInteract()
     {
-        Logger.Info("Item " + ItemName + " was picked up!");
+        Log.Info("Item " + ItemName + " was picked up!");
         if (_inventory != null && _itemToGive != null)
         {
             GlobalSignals.Instance.EmitOnItemPickedUp(_itemToGive, QuantityToGive);
@@ -33,7 +33,7 @@ public partial class ItemInteraction : InteractableObject
         }
         else
         {
-            Logger.Error("Missing item or inventory reference!");
+            Log.Error("Missing item or inventory reference!");
         }
     }
 }

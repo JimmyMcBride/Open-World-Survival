@@ -33,7 +33,7 @@ public partial class AiStateMachine : Node
         _currentState = next;
         next.Enter();
 
-        Logger.Info($"[AI] State changed to {name}");
+        Log.Info($"[AI] State changed to {name}");
     }
 
     public override void _Process(double d)

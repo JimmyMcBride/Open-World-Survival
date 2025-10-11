@@ -1,5 +1,5 @@
 using Godot;
-using Logger = OpenWorldSurvival.engine.core.Logger;
+using OpenWorldSurvival.engine.core;
 
 namespace OpenWorldSurvival.game.scripts.systems.inventory.item;
 
@@ -13,7 +13,7 @@ public partial class Item : Resource
 
     public virtual bool OnUse(CharacterBody3D character)
     {
-        Logger.Debug("Item " + Name + " was used!");
+        Log.Debug("Item " + Name + " was used!");
         return false;
     }
 }

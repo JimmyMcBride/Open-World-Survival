@@ -19,7 +19,7 @@ public partial class EquipObject : Node3D
 
     public virtual void SetHand(bool isMainHand)
     {
-        Logger.Debug($"SetHand as main: {isMainHand}");
+        Log.Debug($"SetHand as main: {isMainHand}");
         IsMainHand = isMainHand;
     }
 

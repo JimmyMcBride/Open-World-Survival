@@ -41,7 +41,7 @@ public partial class FallDamage : Node
         var velocityExcess = Mathf.Abs(_yVelocityLastFrame) - Mathf.Abs(FallDamageThreshold);
         var damagePercentage = velocityExcess * FallDamageMultiplier / 10f;
         var damage = (int)(_health.MaxHealth * damagePercentage);
-        Logger.Debug($"Velocity excess: {velocityExcess}, damage: {damage}, damage percentage: {damagePercentage}");
+        Log.Debug($"Velocity excess: {velocityExcess}, damage: {damage}, damage percentage: {damagePercentage}");
 
         _health.TakeDamage(damage);
     }

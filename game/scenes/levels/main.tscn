@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cfgym5atwpbg5"]
+[gd_scene load_steps=33 format=3 uid="uid://cfgym5atwpbg5"]
 
 [ext_resource type="Script" uid="uid://rerpxysuvmss" path="res://game/scenes/levels/Main.cs" id="1_7sb6g"]
 [ext_resource type="PackedScene" uid="uid://dlfn04gwkq2gi" path="res://game/scenes/modules/props/sword.tscn" id="2_isoho"]
@@ -18,13 +18,14 @@
 [ext_resource type="PackedScene" uid="uid://bo2ok4ak6ktmm" path="res://game/scenes/modules/items/ore.tscn" id="15_k23ve"]
 [ext_resource type="PackedScene" uid="uid://epm54agsrb5q" path="res://game/scenes/modules/items/ingot.tscn" id="17_jno2a"]
 [ext_resource type="PackedScene" uid="uid://dliffqgckv2gi" path="res://game/scripts/actors/player/first_person_controller.tscn" id="18_v63t3"]
+[ext_resource type="Shader" uid="uid://bnoqioqucle8i" path="res://game/resources/shaders/toon-outliner.gdshader" id="19_isoho"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2m2yu"]
 sky_top_color = Color(0.931878, 0.673301, 0.617491, 1)
 sky_horizon_color = Color(0.934909, 0.574942, 0.13605, 1)
-sky_energy_multiplier = 2.3
 ground_bottom_color = Color(0.0235294, 0.129412, 0.196078, 1)
 ground_horizon_color = Color(0, 0.501961, 0.764706, 1)
+energy_multiplier = 2.0
 
 [sub_resource type="Sky" id="Sky_3unua"]
 sky_material = SubResource("ProceduralSkyMaterial_2m2yu")
@@ -32,12 +33,11 @@ sky_material = SubResource("ProceduralSkyMaterial_2m2yu")
 [sub_resource type="Environment" id="Environment_4fblo"]
 background_mode = 2
 sky = SubResource("Sky_3unua")
-glow_enabled = true
 fog_enabled = true
-fog_light_color = Color(0.519362, 0.409126, 0.19985, 1)
-fog_light_energy = 1.95
+fog_light_color = Color(0.6734343, 0.42593375, 0.21268597, 1)
 fog_density = 0.005
-fog_aerial_perspective = 0.4
+fog_aerial_perspective = 0.083
+fog_sky_affect = 0.597
 volumetric_fog_density = 0.026
 volumetric_fog_albedo = Color(1, 0.88512, 0.787487, 1)
 volumetric_fog_sky_affect = 0.528
@@ -102,6 +102,19 @@ shader = SubResource("Shader_x3cx4")
 shader_parameter/albedo = Color(0.329412, 0.219608, 0.0784314, 1)
 shader_parameter/color_gradient = SubResource("GradientTexture1D_w3rhp")
 shader_parameter/fresnel_gradient = SubResource("GradientTexture1D_ojehj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_isoho"]
+render_priority = 0
+shader = ExtResource("19_isoho")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.6999999843536
+shader_parameter/highlight_strength = 0.1
+shader_parameter/is_perspective_camera = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_1hv6u"]
+flip_faces = true
+size = Vector2(2, 2)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_7sb6g")
@@ -233,3 +246,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.31466, 0, -17.5796)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.51, 0)
 use_collision = true
 size = Vector3(99.4629, 1, 86.7627)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_isoho")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_1hv6u")

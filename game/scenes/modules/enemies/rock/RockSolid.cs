@@ -30,7 +30,7 @@ public partial class RockSolid : AbstractAiController
         _aiStateMachine = GetNode<AiStateMachine>("AiStateMachine");
         AnimTree = GetNode<AnimationTree>("AnimationTree");
         AnimTree.Set("parameters/conditions/chase_or_wander", true);
-        Logger.Debug("chase_or_wander true");
+        Log.Debug("chase_or_wander true");
 
         // Signal -> state-machine callback
         _agent.TargetReached += OnTargetReached;

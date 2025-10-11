@@ -37,7 +37,7 @@ public partial class EquipItem : Item
         }
 
         // One-handed weapons: equip to the main hand if empty, otherwise off-hand
-        Logger.Debug($"Main Hand Child Count: {mainHandOrigin.GetChildCount()}");
+        Log.Debug($"Main Hand Child Count: {mainHandOrigin.GetChildCount()}");
         if (mainHandOrigin.GetChildCount() == 0)
             equipController.EquipMainHand(this);
         else
