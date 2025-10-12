@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://bxh1v1eqoy5uo" path="res://game/resources/art/materials/bark.tres" id="3_hrsjf"]
 
 [sub_resource type="Gradient" id="Gradient_lgy34"]
+offsets = PackedFloat32Array(0.158333, 1)
 colors = PackedColorArray(0.0900738, 0.0783616, 0.00889126, 1, 0.730539, 0.789691, 0.316515, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_w3rhp"]

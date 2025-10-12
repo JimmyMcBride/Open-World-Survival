@@ -34,7 +34,7 @@ sky_material = SubResource("ProceduralSkyMaterial_2m2yu")
 background_mode = 2
 sky = SubResource("Sky_3unua")
 fog_enabled = true
-fog_light_color = Color(0.6734343, 0.42593375, 0.21268597, 1)
+fog_light_color = Color(0.673434, 0.425934, 0.212686, 1)
 fog_density = 0.005
 fog_aerial_perspective = 0.083
 fog_sky_affect = 0.597
@@ -108,8 +108,8 @@ render_priority = 0
 shader = ExtResource("19_isoho")
 shader_parameter/shadows_enabled = true
 shader_parameter/highlights_enabled = true
-shader_parameter/shadow_strength = 0.6999999843536
-shader_parameter/highlight_strength = 0.1
+shader_parameter/shadow_strength = 0.6
+shader_parameter/highlight_strength = 0.05
 shader_parameter/is_perspective_camera = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_1hv6u"]
